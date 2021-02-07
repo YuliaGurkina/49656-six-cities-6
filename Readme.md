@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов» [![Build status][travis-image]][travis-url]
 
 * Студент: [Yulia Gurkina](https://up.htmlacademy.ru/react/6/user/49656).
-* Наставник: `Неизвестно`.
+* Наставник: [Мария Климникова](https://htmlacademy.ru/profile/id1229683).
 
 ---
 
