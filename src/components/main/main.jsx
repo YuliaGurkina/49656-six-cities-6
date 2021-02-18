@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from "../place-card/place-card";
 import {Link} from "react-router-dom";
 import Header from "../header/header";
+import OfferList from "../offer-list/offer-list";
 
 const Main = (props) => {
   const {offers} = props;
@@ -58,9 +58,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) =>
-                  <PlaceCard key={offer.id} offer={offer}/>
-                )}
+                <OfferList offers={offers} customCardClass='cities__place-card' customCardImgClass='cities__image-wrapper'/>
               </div>
             </section>
             <div className="cities__right-section">
