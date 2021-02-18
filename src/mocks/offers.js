@@ -27,7 +27,7 @@ export default [
       "zoom": 8
     },
     "max_adults": 4,
-    "preview_image": `img/1.png`,
+    "previewImage": `img/apartment-01.jpg`,
     "price": 120,
     "rating": 4.8,
     "title": `Beautiful & luxurious studio at great location`,
@@ -61,10 +61,10 @@ export default [
       "zoom": 8
     },
     "max_adults": 2,
-    "preview_image": `img/1.png`,
-    "price": 120,
+    "previewImage": `img/apartment-03.jpg`,
+    "price": 100,
     "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
+    "title": `Canal View Prinsengracht`,
     "type": `apartment`
   },
   {
@@ -95,8 +95,8 @@ export default [
       "zoom": 8
     },
     "max_adults": 3,
-    "preview_image": `img/1.png`,
-    "price": 120,
+    "previewImage": `img/apartment-02.jpg`,
+    "price": 99,
     "rating": 4.8,
     "title": `Beautiful & luxurious studio at great location`,
     "type": `apartment`
@@ -109,7 +109,7 @@ export default [
         "longitude": 4.895168,
         "zoom": 10
       },
-      "name": `Amsterdam`
+      "name": `Amsterdam 2`
     },
     "description": `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.`,
     "goods": [`Heating`, `Kitchen`, `Cable TV`, `Washing machine`, `Coffee machine`, `Dishwasher`],
@@ -129,10 +129,10 @@ export default [
       "zoom": 8
     },
     "max_adults": 2,
-    "preview_image": `img/1.png`,
-    "price": 120,
+    "previewImage": `img/apartment-01.jpg`,
+    "price": 152,
     "rating": 4.8,
-    "title": `Beautiful & luxurious studio at great location`,
-    "type": `apartment`
+    "title": `Wood and stone place`,
+    "type": `room`
   },
 ];

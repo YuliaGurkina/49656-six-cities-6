@@ -5,13 +5,7 @@ import {Link} from "react-router-dom";
 import Header from "../header/header";
 
 const Main = (props) => {
-  const cards = [
-    {id: 1},
-    {id: 2},
-    {id: 3},
-    {id: 4},
-    {id: 5}
-  ];
+  const {offers} = props;
 
   const locations = [
     {name: `Paris`, id: 1},
@@ -64,8 +58,8 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {cards.map((card) =>
-                  <PlaceCard key={card.id}/>
+                {offers.map((offer) =>
+                  <PlaceCard key={offer.id} offer={offer}/>
                 )}
               </div>
             </section>
@@ -81,6 +75,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default Main;
