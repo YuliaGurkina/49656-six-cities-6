@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import PlaceCard from "../place-card/place-card";
 
 const OfferList = (props) => {
-  const [activeOffer, setActiveOffer] = useState({});
+  const activeOffer = useState(0);
+  const setActiveOffer = activeOffer[1];
+  // const [activeOffer, setActiveOffer] = useState({});
+
   const {offers, customCardClass, customCardImgClass, customCardInfoClass, widthImg = 260, heightImg = 200} = props;
 
   return (

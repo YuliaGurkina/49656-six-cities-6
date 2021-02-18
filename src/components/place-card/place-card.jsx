@@ -1,9 +1,10 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const PlaceCard = (props) => {
   const {offer, handleMouseEnter, handleMouseLeave, customCardClass, customCardImgClass, customCardInfoClass, widthImg, heightImg} = props;
-  const {price, title, type, previewImage} = offer;
+  const {price, title, type, previewImage, id} = offer;
 
   return (
     <article className={`${customCardClass} place-card`}
@@ -14,9 +15,9 @@ const PlaceCard = (props) => {
         <span>Premium</span>
       </div>
       <div className={`${customCardImgClass} place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={`offer/${id}`}>
           <img className="place-card__image" src={previewImage} width={widthImg} height={heightImg} alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className={`${customCardInfoClass} place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -38,7 +39,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{title}</a>
+          <Link to={`offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -49,6 +50,7 @@ const PlaceCard = (props) => {
 PlaceCard.propTypes = {
   offer: PropTypes.shape({
     price: PropTypes.number.isRequired,
+    id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,
