@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from "../place-card/place-card";
 import {Link} from "react-router-dom";
 import Header from "../header/header";
+import OfferList from "../offer-list/offer-list";
 
 const Main = (props) => {
-  const cards = [
-    {id: 1},
-    {id: 2},
-    {id: 3},
-    {id: 4},
-    {id: 5}
-  ];
+  const {offers} = props;
 
   const locations = [
     {name: `Paris`, id: 1},
@@ -64,9 +58,7 @@ const Main = (props) => {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {cards.map((card) =>
-                  <PlaceCard key={card.id}/>
-                )}
+                <OfferList offers={offers} customCardClass='cities__place-card' customCardImgClass='cities__image-wrapper'/>
               </div>
             </section>
             <div className="cities__right-section">
@@ -81,6 +73,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default Main;

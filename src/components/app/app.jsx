@@ -8,19 +8,21 @@ import Property from "../property/property";
 import NotFound from "../not-found/not-found";
 
 const App = (props) => {
+  const {offersCount, offers} = props;
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/">
-          <Main offersCount={props.offersCount}/>
+          <Main offersCount={offersCount} offers={offers}/>
         </Route>
         <Route exact path="/login">
           <Login />
         </Route>
         <Route exact path="/favorites">
-          <Favorites />
+          <Favorites offers={offers}/>
         </Route>
-        <Route exact path="/offer/:id?">
+        <Route exact path="/offer/:id">
           <Property />
         </Route>
         <Route>
@@ -33,6 +35,7 @@ const App = (props) => {
 
 App.propTypes = {
   offersCount: PropTypes.number.isRequired,
+  offers: PropTypes.array.isRequired,
 };
 
 export default App;
