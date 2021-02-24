@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import {Link} from "react-router-dom";
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
+import offerProp from "../app/offer.prop";
+import Map from "../map/map";
 
 const Main = (props) => {
   const {offers} = props;
@@ -15,6 +17,12 @@ const Main = (props) => {
     {name: `Hamburg`, id: 5},
     {name: `Dusseldorf`, id: 6}
   ];
+
+  const city = {
+    lat: 52.38333,
+    lng: 4.9,
+    zoom: 12
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -62,7 +70,12 @@ const Main = (props) => {
               </div>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <section className="cities__map map">
+                <Map
+                  city={city}
+                  points={offers}
+                />
+              </section>
             </div>
           </div>
         </div>
@@ -73,7 +86,7 @@ const Main = (props) => {
 
 Main.propTypes = {
   offersCount: PropTypes.number.isRequired,
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 export default Main;

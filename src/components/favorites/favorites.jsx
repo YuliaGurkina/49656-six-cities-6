@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
 import PropTypes from "prop-types";
+import offerProp from "../app/offer.prop";
 
 const Favorites = (props) => {
   const {offers} = props;
@@ -68,7 +69,7 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 export default Favorites;
