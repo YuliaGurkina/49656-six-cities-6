@@ -45,6 +45,29 @@ const Map = ({city, points}) => {
     });
   }, []);
 
+  useEffect(() => {
+    const icon = leaflet.icon({
+      iconUrl: `img/pin.svg`,
+      iconSize: [30, 30]
+    });
+
+    points.forEach((point) => {
+      leaflet.marker({
+        lat: point.location.latitude,
+        lng: point.location.longitude
+      },
+      {
+        icon
+      })
+        .addTo(mapRef.current)
+        .bindPopup(point.title);
+
+      return () => {
+        mapRef.current.remove();
+      };
+    });
+  }, [city, points]);
+
   return (
     <div id="map" className="map" style={{height: `500px`}}/>
   );
