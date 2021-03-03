@@ -6,10 +6,10 @@ export const ActionType = {
 export const ActionCreator = {
   selectCity: (city) => ({
     type: ActionType.SELECT_CITY,
-    city,
+    payload: city,
   }),
   fillOffers: (city) => ({
     type: ActionType.FILL_OFFERS,
-    city,
+    payload: city,
   })
 };

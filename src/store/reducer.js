@@ -21,7 +21,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: {
           ...state.city,
-          name: action.city
+          name: action.payload
         }
       };
     case ActionType.FILL_OFFERS:
