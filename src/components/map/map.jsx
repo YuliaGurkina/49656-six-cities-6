@@ -4,8 +4,14 @@ import * as leaflet from "leaflet";
 
 import "leaflet/dist/leaflet.css";
 
-const Map = ({city, points}) => {
+const Map = ({points}) => {
   const mapRef = useRef();
+
+  const cityZoom = points[0].city.location.zoom;
+  const cityCenter = {
+    lat: points[0].city.location.latitude,
+    lng: points[0].city.location.longitude,
+  };
 
   useEffect(() => {
     const icon = leaflet.icon({
@@ -14,13 +20,13 @@ const Map = ({city, points}) => {
     });
 
     mapRef.current = leaflet.map(`map`, {
-      center: city,
-      zoom: city.zoom,
+      center: cityCenter,
+      zoom: cityZoom,
       zoomControl: false,
       marker: true
     });
 
-    mapRef.current.setView(city, city.zoom);
+    mapRef.current.setView(cityCenter, cityZoom);
 
     leaflet
       .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
@@ -66,7 +72,7 @@ const Map = ({city, points}) => {
         mapRef.current.remove();
       };
     });
-  }, [city, points]);
+  }, [points]);
 
   return (
     <div id="map" className="map" style={{height: `500px`}}/>
@@ -74,17 +80,19 @@ const Map = ({city, points}) => {
 };
 
 Map.propTypes = {
-  city: PropTypes.shape({
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
-  }),
   points: PropTypes.arrayOf(PropTypes.shape({
     location: PropTypes.shape({
       latitude: PropTypes.number.isRequired,
       longitude: PropTypes.number.isRequired,
     }),
     title: PropTypes.string.isRequired,
+    city: PropTypes.shape({
+      location: PropTypes.shape({
+        latitude: PropTypes.number.isRequired,
+        longitude: PropTypes.number.isRequired,
+        zoom: PropTypes.number.isRequired,
+      }),
+    }),
   }))
 };
 

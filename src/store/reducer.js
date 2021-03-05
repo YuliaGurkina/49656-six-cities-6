@@ -1,17 +1,14 @@
 import {ActionType} from './action';
 import {getOffersByCity, getOffersCount} from "../selectors";
-import offers from "../mocks/offers";
 
 const initialState = {
   city: {
     name: `Paris`,
-    lat: 52.38333,
-    lng: 4.9,
-    zoom: 12
   },
-  offersCount: offers.length,
+  offers: [],
+  offersCount: 0,
   offersFiltered: [],
-  offers
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,6 +26,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         offersFiltered: getOffersByCity(state),
         offersCount: getOffersCount(state),
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+        isDataLoaded: true
       };
   }
 
