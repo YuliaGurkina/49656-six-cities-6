@@ -4,9 +4,12 @@ import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
 import PropTypes from "prop-types";
 import offerProp from "../app/offer.prop";
+import {getOffersByCity, getOffersCount} from "../../selectors";
+import {ActionCreator} from "../../store/action";
+import {connect} from "react-redux";
 
 const Favorites = (props) => {
-  const {offers} = props;
+  const {offersFiltered} = props;
 
   return (
     <div className="page">
@@ -26,7 +29,7 @@ const Favorites = (props) => {
                 </div>
                 <div className="favorites__places">
                   <OfferList
-                    offers={offers}
+                    offers={offersFiltered}
                     customCardClass='favorites__card'
                     customCardImgClass='favorites__image-wrapper'
                     customCardInfoClass='favorites__card-info'
@@ -46,7 +49,7 @@ const Favorites = (props) => {
                 </div>
                 <div className="favorites__places">
                   <OfferList
-                    offers={offers}
+                    offers={offersFiltered}
                     customCardClass='favorites__card'
                     customCardImgClass='favorites__image-wrapper'
                     customCardInfoClass='favorites__card-info'
@@ -69,7 +72,19 @@ const Favorites = (props) => {
 };
 
 Favorites.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
+  offersFiltered: PropTypes.arrayOf(offerProp).isRequired,
 };
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offersCount: getOffersCount(state),
+  offersFiltered: getOffersByCity(state)
+});
 
-export default Favorites;
+const mapDispatchToProps = (dispatch) => ({
+  onSelectCity(offers, city) {
+    dispatch(ActionCreator.selectCity(city.name));
+    dispatch(ActionCreator.fillOffers(city.name));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

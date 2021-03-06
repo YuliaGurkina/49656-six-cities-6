@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
@@ -8,24 +8,50 @@ import CitiesList from "../cities-list/cities-list";
 import {connect} from "react-redux";
 import {ActionCreator} from '../../store/action';
 import {getOffersByCity, getOffersCount} from "../../selectors";
+import LoadingScreen from '../loading-screen/loading-screen';
+import {fetchOfferList} from "../../store/api-actions";
 
 const Main = (props) => {
-  const {offersFiltered, city, onSelectCity, offersCount} = props;
+  const {offersFiltered, city, onSelectCity, offersCount, isDataLoaded, onLoadData} = props;
 
   const locations = [
-    {name: `Paris`, id: 1},
-    {name: `Cologne`, id: 2},
-    {name: `Brussels`, id: 3},
+    {
+      name: `Paris`,
+      id: 1,
+    },
+    {
+      name: `Cologne`,
+      id: 2,
+    },
+    {
+      name: `Brussels`,
+      id: 3,
+    },
     {
       name: `Amsterdam`,
       id: 4,
-      lat: 52.38333,
-      lng: 4.9,
-      zoom: 12
     },
-    {name: `Hamburg`, id: 5},
-    {name: `Dusseldorf`, id: 6}
+    {
+      name: `Hamburg`,
+      id: 5,
+    },
+    {
+      name: `Dusseldorf`,
+      id: 6,
+    }
   ];
+
+  useEffect(() => {
+    if (!isDataLoaded) {
+      onLoadData();
+    }
+  }, [isDataLoaded]);
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -65,7 +91,7 @@ const Main = (props) => {
             <div className="cities__right-section">
               <section className="cities__map map">
                 <Map
-                  city={city}
+                  key={city.name}
                   points={offersFiltered}
                 />
               </section>
@@ -82,23 +108,26 @@ Main.propTypes = {
   offersFiltered: PropTypes.arrayOf(offerProp).isRequired,
   city: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    lat: PropTypes.number.isRequired,
-    lng: PropTypes.number.isRequired,
-    zoom: PropTypes.number.isRequired,
   }).isRequired,
   onSelectCity: PropTypes.func.isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
+  onLoadData: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offersCount: getOffersCount(state),
-  offersFiltered: getOffersByCity(state)
+  offersFiltered: getOffersByCity(state),
+  isDataLoaded: state.isDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectCity(offers, city) {
     dispatch(ActionCreator.selectCity(city.name));
     dispatch(ActionCreator.fillOffers(city.name));
+  },
+  onLoadData() {
+    dispatch(fetchOfferList());
   },
 });
 

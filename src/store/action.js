@@ -1,6 +1,7 @@
 export const ActionType = {
   SELECT_CITY: `selectCity`,
-  FILL_OFFERS: `fillOffers`
+  FILL_OFFERS: `fillOffers`,
+  LOAD_OFFERS: `data/loadOffers`
 };
 
 export const ActionCreator = {
@@ -11,5 +12,9 @@ export const ActionCreator = {
   fillOffers: (city) => ({
     type: ActionType.FILL_OFFERS,
     payload: city,
+  }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers
   })
 };
