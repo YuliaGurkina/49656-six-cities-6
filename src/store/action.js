@@ -1,7 +1,9 @@
 export const ActionType = {
   SELECT_CITY: `selectCity`,
   FILL_OFFERS: `fillOffers`,
-  LOAD_OFFERS: `data/loadOffers`
+  LOAD_OFFERS: `data/loadOffers`,
+  REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
+  REDIRECT_TO_ROUTE: `game/redirectToRoute`,
 };
 
 export const ActionCreator = {
@@ -16,5 +18,13 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers
+  }),
+  requireAuthorization: (status) => ({
+    type: ActionType.REQUIRED_AUTHORIZATION,
+    payload: status,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionType.REDIRECT_TO_ROUTE,
+    payload: url,
   })
 };
