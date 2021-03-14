@@ -2,16 +2,11 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
-import PropTypes from "prop-types";
-import offerProp from "../app/offer.prop";
-import {getOffersByCity, getOffersCount} from "../../selectors";
-import {selectCity, fillOffers} from "../../store/action";
-import {connect} from "react-redux";
-import {getCity} from "../../store/app-process/selectors";
+import {getOffersByCity} from "../../selectors";
+import {useSelector} from "react-redux";
 
-const Favorites = (props) => {
-  const {offersFiltered} = props;
-
+const Favorites = () => {
+  const offersFiltered = useSelector((state) => getOffersByCity(state));
   return (
     <div className="page">
       <Header/>
@@ -72,20 +67,4 @@ const Favorites = (props) => {
   );
 };
 
-Favorites.propTypes = {
-  offersFiltered: PropTypes.arrayOf(offerProp).isRequired,
-};
-const mapStateToProps = (state) => ({
-  city: getCity(state),
-  offersCount: getOffersCount(state),
-  offersFiltered: getOffersByCity(state)
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSelectCity(offers, city) {
-    dispatch(selectCity(city.name));
-    dispatch(fillOffers(city.name));
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default Favorites;

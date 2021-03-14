@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './components/app/app';
 import rootReducer from "./store/root-reducer";
 import {Provider} from "react-redux";
-import {composeWithDevTools} from "redux-devtools-extension";
-import {createStore, applyMiddleware} from 'redux';
-import thunk from "redux-thunk";
 import {createAPI} from "./services/api";
+import {configureStore} from '@reduxjs/toolkit';
 import {requireAuthorization} from "./store/action";
 import {AuthorizationStatus} from "./const";
 import {checkAuth} from "./store/api-actions";
@@ -17,13 +15,15 @@ const api = createAPI(
     () => alert(`Incorrect Email`)
 );
 
-const store = createStore(
-    rootReducer,
-    composeWithDevTools(
-        applyMiddleware(thunk.withExtraArgument(api)),
-        applyMiddleware(redirect)
-    )
-);
+const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: api
+      },
+    }).concat(redirect)
+});
 
 store.dispatch(checkAuth());
 

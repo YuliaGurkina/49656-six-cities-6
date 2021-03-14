@@ -1,21 +1,15 @@
 import React, {useEffect} from 'react';
-import PropTypes from 'prop-types';
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
-import offerProp from "../app/offer.prop";
 import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
-import {connect} from "react-redux";
 import {selectCity, fillOffers} from '../../store/action';
-import {getOffersByCity, getOffersCount} from "../../selectors";
 import LoadingScreen from '../loading-screen/loading-screen';
 import {fetchOfferList} from "../../store/api-actions";
-import {getCity} from "../../store/app-process/selectors";
-import {getLoadedDataStatus} from "../../store/app-data/selectors";
+import {useSelector, useDispatch} from 'react-redux';
+import {getOffersByCity, getOffersCount} from "../../selectors";
 
-const Main = (props) => {
-  const {offersFiltered, city, onSelectCity, offersCount, isDataLoaded, onLoadData} = props;
-
+const Main = () => {
   const locations = [
     {
       name: `Paris`,
@@ -42,10 +36,21 @@ const Main = (props) => {
       id: 6,
     }
   ];
+  const {city} = useSelector((state) => state.PROCESS);
+  const {isDataLoaded} = useSelector((state) => state.DATA);
+  const offersCount = useSelector((state) => getOffersCount(state));
+  const offersFiltered = useSelector((state) => getOffersByCity(state));
+
+  const dispatch = useDispatch();
+
+  const onSelectCity = (selectedCity) => {
+    dispatch(selectCity(selectedCity.name));
+    dispatch(fillOffers(selectedCity.name));
+  };
 
   useEffect(() => {
     if (!isDataLoaded) {
-      onLoadData();
+      dispatch(fetchOfferList());
     }
   }, [isDataLoaded]);
 
@@ -61,11 +66,13 @@ const Main = (props) => {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        <CitiesList
-          locations={locations}
-          selectedCity={city.name}
-          onSelect={onSelectCity}
-        />
+        {city &&
+          <CitiesList
+            locations={locations}
+            selectedCity={city}
+            onSelect={onSelectCity}
+          />
+        }
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -92,10 +99,12 @@ const Main = (props) => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map
-                  key={city.name}
-                  points={offersFiltered}
-                />
+                {offersFiltered.length &&
+                  <Map
+                    key={city}
+                    points={offersFiltered}
+                  />
+                }
               </section>
             </div>
           </div>
@@ -105,32 +114,4 @@ const Main = (props) => {
   );
 };
 
-Main.propTypes = {
-  offersCount: PropTypes.number.isRequired,
-  offersFiltered: PropTypes.arrayOf(offerProp).isRequired,
-  city: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }).isRequired,
-  onSelectCity: PropTypes.func.isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-  onLoadData: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: getCity(state),
-  offersCount: getOffersCount(state),
-  offersFiltered: getOffersByCity(state),
-  isDataLoaded: getLoadedDataStatus(state),
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSelectCity(offers, city) {
-    dispatch(selectCity(city.name));
-    dispatch(fillOffers(city.name));
-  },
-  onLoadData() {
-    dispatch(fetchOfferList());
-  },
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default Main;
