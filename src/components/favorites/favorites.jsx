@@ -5,7 +5,7 @@ import OfferList from "../offer-list/offer-list";
 import PropTypes from "prop-types";
 import offerProp from "../app/offer.prop";
 import {getOffersByCity, getOffersCount} from "../../selectors";
-import {ActionCreator} from "../../store/action";
+import {selectCity, fillOffers} from "../../store/action";
 import {connect} from "react-redux";
 
 const Favorites = (props) => {
@@ -82,8 +82,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectCity(offers, city) {
-    dispatch(ActionCreator.selectCity(city.name));
-    dispatch(ActionCreator.fillOffers(city.name));
+    dispatch(selectCity(city.name));
+    dispatch(fillOffers(city.name));
   },
 });
 

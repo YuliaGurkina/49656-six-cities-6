@@ -6,7 +6,7 @@ import offerProp from "../app/offer.prop";
 import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
 import {connect} from "react-redux";
-import {ActionCreator} from '../../store/action';
+import {selectCity, fillOffers} from '../../store/action';
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import LoadingScreen from '../loading-screen/loading-screen';
 import {fetchOfferList} from "../../store/api-actions";
@@ -123,8 +123,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSelectCity(offers, city) {
-    dispatch(ActionCreator.selectCity(city.name));
-    dispatch(ActionCreator.fillOffers(city.name));
+    dispatch(selectCity(city.name));
+    dispatch(fillOffers(city.name));
   },
   onLoadData() {
     dispatch(fetchOfferList());
