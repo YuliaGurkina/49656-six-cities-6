@@ -10,6 +10,8 @@ import {selectCity, fillOffers} from '../../store/action';
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import LoadingScreen from '../loading-screen/loading-screen';
 import {fetchOfferList} from "../../store/api-actions";
+import {getCity} from "../../store/app-process/selectors";
+import {getLoadedDataStatus} from "../../store/app-data/selectors";
 
 const Main = (props) => {
   const {offersFiltered, city, onSelectCity, offersCount, isDataLoaded, onLoadData} = props;
@@ -114,11 +116,11 @@ Main.propTypes = {
   onLoadData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({PROCESS, DATA}) => ({
-  city: PROCESS.city,
-  offersCount: getOffersCount({PROCESS, DATA}),
-  offersFiltered: getOffersByCity({PROCESS, DATA}),
-  isDataLoaded: DATA.isDataLoaded,
+const mapStateToProps = (state) => ({
+  city: getCity(state),
+  offersCount: getOffersCount(state),
+  offersFiltered: getOffersByCity(state),
+  isDataLoaded: getLoadedDataStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,13 +1,7 @@
 import {createSelector} from "reselect";
-import {NameSpace} from './store/root-reducer';
+import {getOffers} from "./store/app-data/selectors";
+import {getCity} from "./store/app-process/selectors";
 
-export const getOffers = (state) => {
-  return state[NameSpace.DATA].offers;
-};
-
-export const getCity = (state) => {
-  return state[NameSpace.PROCESS].city.name;
-};
 
 export const getOffersByCity = createSelector(
     getOffers,

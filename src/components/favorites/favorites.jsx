@@ -7,6 +7,7 @@ import offerProp from "../app/offer.prop";
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import {selectCity, fillOffers} from "../../store/action";
 import {connect} from "react-redux";
+import {getCity} from "../../store/app-process/selectors";
 
 const Favorites = (props) => {
   const {offersFiltered} = props;
@@ -74,10 +75,10 @@ const Favorites = (props) => {
 Favorites.propTypes = {
   offersFiltered: PropTypes.arrayOf(offerProp).isRequired,
 };
-const mapStateToProps = ({PROCESS}) => ({
-  city: PROCESS.city,
-  offersCount: getOffersCount(PROCESS),
-  offersFiltered: getOffersByCity(PROCESS)
+const mapStateToProps = (state) => ({
+  city: getCity(state),
+  offersCount: getOffersCount(state),
+  offersFiltered: getOffersByCity(state)
 });
 
 const mapDispatchToProps = (dispatch) => ({
