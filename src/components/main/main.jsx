@@ -114,11 +114,11 @@ Main.propTypes = {
   onLoadData: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offersCount: getOffersCount(state),
-  offersFiltered: getOffersByCity(state),
-  isDataLoaded: state.isDataLoaded,
+const mapStateToProps = ({PROCESS, DATA}) => ({
+  city: PROCESS.city,
+  offersCount: getOffersCount({PROCESS, DATA}),
+  offersFiltered: getOffersByCity({PROCESS, DATA}),
+  isDataLoaded: DATA.isDataLoaded,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -74,10 +74,10 @@ const Favorites = (props) => {
 Favorites.propTypes = {
   offersFiltered: PropTypes.arrayOf(offerProp).isRequired,
 };
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offersCount: getOffersCount(state),
-  offersFiltered: getOffersByCity(state)
+const mapStateToProps = ({PROCESS}) => ({
+  city: PROCESS.city,
+  offersCount: getOffersCount(PROCESS),
+  offersFiltered: getOffersByCity(PROCESS)
 });
 
 const mapDispatchToProps = (dispatch) => ({
