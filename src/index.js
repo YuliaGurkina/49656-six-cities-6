@@ -13,7 +13,8 @@ import {checkAuth} from "./store/api-actions";
 import {redirect} from "./store/middlewares/redirect";
 
 const api = createAPI(
-    () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH))
+    () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
+    () => alert(`Incorrect Email`)
 );
 
 const store = createStore(

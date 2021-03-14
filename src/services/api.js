@@ -4,10 +4,11 @@ import humps from 'humps';
 const BACKEND_URL = `https://6.react.pages.academy/six-cities`;
 const REQUEST_TIMEOUT = 5000;
 const HttpCode = {
-  UNAUTHORIZED: 401
+  UNAUTHORIZED: 401,
+  BADREQUEST: 400
 };
 
-export const createAPI = (onUnauthorized) => {
+export const createAPI = (onUnauthorized, onShowWarning) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -33,6 +34,10 @@ export const createAPI = (onUnauthorized) => {
       // Бросаем ошибку, потому что нам важно прервать цепочку промисов после запроса авторизации.
       // Запрос авторизации — это особый случай и важно дать понять приложению, что запрос был неудачным.
       throw err;
+    } else {
+      if (response.status === HttpCode.BADREQUEST) {
+        onShowWarning();
+      }
     }
     throw err;
   };
