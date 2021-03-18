@@ -66,13 +66,11 @@ const Main = () => {
 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
-        {city &&
-          <CitiesList
-            locations={locations}
-            selectedCity={city}
-            onSelect={onSelectCity}
-          />
-        }
+        <CitiesList
+          locations={locations}
+          selectedCity={city}
+          onSelect={onSelectCity}
+        />
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
@@ -99,12 +97,10 @@ const Main = () => {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {offersFiltered.length &&
-                  <Map
-                    key={city}
-                    points={offersFiltered}
-                  />
-                }
+                <Map
+                  key={city.name}
+                  points={offersFiltered}
+                />
               </section>
             </div>
           </div>

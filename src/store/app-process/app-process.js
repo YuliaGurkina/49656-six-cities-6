@@ -1,6 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {getOffersByCity, getOffersCount} from "../../selectors";
-import {fillOffers, selectCity} from "../action";
+import {selectCity} from "../action";
 
 const initialState = {
   city: {
@@ -13,10 +12,6 @@ const initialState = {
 const appProcess = createReducer(initialState, (builder) => {
   builder.addCase(selectCity, (state, action) => {
     state.city.name = action.payload;
-  });
-  builder.addCase(fillOffers, (state) => {
-    state.offersFiltered = getOffersByCity(state);
-    state.offersCount = getOffersCount(state);
   });
 });
 
