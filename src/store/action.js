@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 export const ActionType = {
   SELECT_CITY: `selectCity`,
   FILL_OFFERS: `fillOffers`,
@@ -6,25 +8,32 @@ export const ActionType = {
   REDIRECT_TO_ROUTE: `game/redirectToRoute`,
 };
 
-export const ActionCreator = {
-  selectCity: (city) => ({
-    type: ActionType.SELECT_CITY,
+export const selectCity = createAction(ActionType.SELECT_CITY, (city) => {
+  return {
     payload: city,
-  }),
-  fillOffers: (city) => ({
-    type: ActionType.FILL_OFFERS,
+  };
+});
+
+export const fillOffers = createAction(ActionType.FILL_OFFERS, (city) => {
+  return {
     payload: city,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
+  };
+});
+
+export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => {
+  return {
+    payload: offers,
+  };
+});
+
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION, (status) => {
+  return {
     payload: status,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
+  };
+});
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => {
+  return {
     payload: url,
-  })
-};
+  };
+});

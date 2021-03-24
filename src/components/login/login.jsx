@@ -1,20 +1,39 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
-import {connect} from "react-redux";
+import {useDispatch} from "react-redux";
 import {login} from "../../store/api-actions";
+import {toast} from "react-toastify";
 
-const Login = ({onSubmit}) => {
+const Login = () => {
   const loginRef = useRef();
   const passwordRef = useRef();
+  const dispatch = useDispatch();
+  const [validEmail, setValidEmail] = useState(true);
+  const notify = () => toast(`Incorrect Email`);
+
+  const handleBlur = () => {
+    if (loginRef.current.value === ``) {
+      setValidEmail(false);
+    }
+    const re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+    setValidEmail(re.test(loginRef.current.value));
+  };
+  const handleFocus = () => {
+    setValidEmail(true);
+  };
+
+  useEffect(() => {
+    if (!validEmail) {
+      notify();
+    }
+  }, [validEmail]);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    onSubmit({
+    dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
 
   return (
@@ -54,6 +73,8 @@ const Login = ({onSubmit}) => {
                 <label className="visually-hidden">E-mail</label>
                 <input
                   ref={loginRef}
+                  onBlur={handleBlur}
+                  onFocus={handleFocus}
                   className="login__input form__input"
                   type="email"
                   name="email"
@@ -88,14 +109,4 @@ const Login = ({onSubmit}) => {
   );
 };
 
-Login.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-  }
-});
-
-export default connect(null, mapDispatchToProps)(Login);
+export default Login;

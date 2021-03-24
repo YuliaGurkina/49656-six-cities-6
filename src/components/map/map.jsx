@@ -44,11 +44,11 @@ const Map = ({points}) => {
       })
         .addTo(mapRef.current)
         .bindPopup(point.title);
-
-      return () => {
-        mapRef.current.remove();
-      };
     });
+
+    return () => {
+      mapRef.current.remove();
+    };
   }, []);
 
   useEffect(() => {
@@ -67,10 +67,6 @@ const Map = ({points}) => {
       })
         .addTo(mapRef.current)
         .bindPopup(point.title);
-
-      return () => {
-        mapRef.current.remove();
-      };
     });
   }, [points]);
 

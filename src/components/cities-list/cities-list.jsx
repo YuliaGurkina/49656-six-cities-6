@@ -11,11 +11,11 @@ const CitiesList = ({locations, selectedCity, onSelect}) => {
             return (
               <li className="locations__item" key={item.id}>
                 <Link
-                  className={`locations__item-link tabs__item ${item.name === selectedCity ? `tabs__item--active` : ``}`}
+                  className={`locations__item-link tabs__item ${item.name === selectedCity.name ? `tabs__item--active` : ``}`}
                   to="/"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    onSelect([], item);
+                    onSelect(item);
                   }}
                 >
                   <span>{item.name}</span>
@@ -34,7 +34,9 @@ CitiesList.propTypes = {
     name: PropTypes.string,
     id: PropTypes.number
   })).isRequired,
-  selectedCity: PropTypes.string.isRequired,
+  selectedCity: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }).isRequired,
   onSelect: PropTypes.func.isRequired,
 };
 

@@ -13,4 +13,5 @@ export const AppRoute = {
 export const APIRoute = {
   OFFERS: `/hotels`,
   LOGIN: `/login`,
+  LOGOUT: `/logout`,
 };
