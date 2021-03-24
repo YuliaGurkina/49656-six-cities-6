@@ -9,10 +9,11 @@ import {requireAuthorization} from "./store/action";
 import {AuthorizationStatus} from "./const";
 import {checkAuth} from "./store/api-actions";
 import {redirect} from "./store/middlewares/redirect";
+import {ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const api = createAPI(
-    () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH)),
-    () => alert(`Incorrect Email`)
+    () => store.dispatch(requireAuthorization(AuthorizationStatus.NO_AUTH))
 );
 
 const store = configureStore({
@@ -30,6 +31,7 @@ store.dispatch(checkAuth());
 ReactDOM.render(
     <Provider store={store}>
       <App/>
+      <ToastContainer />
     </Provider>,
     document.querySelector(`#root`)
 );
