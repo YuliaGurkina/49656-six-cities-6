@@ -1,4 +1,4 @@
-import {loadOffers, requireAuthorization, redirectToRoute} from "./action";
+import {loadOffers, requireAuthorization, redirectToRoute, loadComments} from "./action";
 import {APIRoute, AppRoute, AuthorizationStatus} from "../const";
 import {toast} from 'react-toastify';
 import {HttpCode} from "../services/api";
@@ -30,4 +30,9 @@ export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
+);
+
+export const fetchCommentsList = ({hotelId: id}) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.COMMETS}/${id}`, {id})
+    .then(({data}) => dispatch(loadComments(data)))
 );
