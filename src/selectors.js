@@ -6,12 +6,38 @@ export const getOffers = (state) => {
 };
 
 export const getCity = (state) => state[NameSpace.PROCESS].city.name;
+export const getSortOption = (state) => state[NameSpace.PROCESS].sortOption;
 
 export const getOffersByCity = createSelector(
     getOffers,
     getCity,
-    (offers, city) => {
-      return offers.filter((item) => item.city.name === city);
+    getSortOption,
+    (offers, city, sortOption) => {
+      const offersByCity = offers.filter((item) => item.city.name === city);
+      if (sortOption.id === 0) {
+        return offersByCity;
+      }
+
+      const offersByCitySort = offers.slice(0);
+
+      switch (sortOption.id) {
+        case 1:
+          offersByCitySort.sort(function (a, b) {
+            return a.price - b.price;
+          });
+          break;
+        case 2:
+          offersByCitySort.sort(function (a, b) {
+            return b.price - a.price;
+          });
+          break
+        case 3:
+          offersByCitySort.sort(function (a, b) {
+            return a.rating - b.rating;
+          });
+      }
+
+      return offersByCitySort;
     }
 );
 
