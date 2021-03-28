@@ -4,6 +4,9 @@ import {NameSpace} from "./store/root-reducer";
 export const getOffers = (state) => {
   return state[NameSpace.DATA].offers;
 };
+export const getComments = (state) => {
+  return state[NameSpace.DATA].comments;
+};
 
 export const getCity = (state) => state[NameSpace.PROCESS].city.name;
 

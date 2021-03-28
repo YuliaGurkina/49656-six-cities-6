@@ -8,6 +8,7 @@ import NotFound from "../not-found/not-found";
 import PrivateRoute from '../private-route/private-route';
 import browserHistory from "../../browser-history";
 import {AppRoute} from "../../const";
+import PropTypes from "prop-types";
 
 const App = () => {
 
@@ -25,15 +26,21 @@ const App = () => {
           render={() => <Favorites />}
         >
         </PrivateRoute>
-        <Route exact path={`${AppRoute.OFFER}/:id`}>
-          <Property />
-        </Route>
+        <Route exact path={`${AppRoute.OFFER}/:id`} render={(props) => <Property id={props.match.params.id}/>} />
         <Route>
           <NotFound />
         </Route>
       </Switch>
     </BrowserRouter>
   );
+};
+
+App.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired
+    })
+  }),
 };
 
 export default App;

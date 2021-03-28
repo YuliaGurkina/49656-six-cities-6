@@ -1,8 +1,9 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Link} from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {Link, Redirect} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
 import {login} from "../../store/api-actions";
 import {toast} from "react-toastify";
+import {AppRoute, AuthorizationStatus} from "../../const";
 
 const Login = () => {
   const loginRef = useRef();
@@ -35,6 +36,15 @@ const Login = () => {
       password: passwordRef.current.value,
     }));
   };
+
+  const {authorizationStatus} = useSelector(
+      (state) => {
+        return state.USER;
+      });
+
+  if (authorizationStatus === AuthorizationStatus.AUTH) {
+    return <Redirect to={AppRoute.ROOT} />;
+  }
 
   return (
     <div className="page page--gray page--login">
