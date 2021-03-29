@@ -8,11 +8,14 @@ import PropTypes from "prop-types";
 import {getComments, getOffer} from "../../selectors";
 import Map from "../map/map";
 import OfferList from "../offer-list/offer-list";
+import NotFound from "../not-found/not-found";
+import LoadingScreen from "../loading-screen/loading-screen";
 
 const Property = ({id}) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => getComments(state));
   const offer = useSelector((state) => getOffer(state));
+  const {isDataOfferLoaded} = useSelector((state) => state.DATA);
 
   const OfferType =
     {
@@ -135,6 +138,17 @@ const Property = ({id}) => {
     dispatch(fetchOffer(id));
   }, []);
 
+  if (!isDataOfferLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
+  if (!offer.id) {
+    return (
+      <NotFound />
+    );
+  }
   return (
     <div className="page">
       <Header/>

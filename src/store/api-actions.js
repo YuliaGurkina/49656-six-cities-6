@@ -1,4 +1,4 @@
-import {loadOffers, requireAuthorization, redirectToRoute, loadComments, loadOffer} from "./action";
+import {loadOffers, requireAuthorization, redirectToRoute, loadComments, loadOffer, fillOffers} from "./action";
 import {APIRoute, AppRoute, AuthorizationStatus} from "../const";
 import {toast} from 'react-toastify';
 import {HttpCode} from "../services/api";
@@ -13,6 +13,12 @@ export const fetchOfferList = () => (dispatch, _getState, api) => (
 export const fetchOffer = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.OFFERS}/${id}`)
     .then(({data}) => dispatch(loadOffer(data)))
+    .catch(function (error) {
+      if (error.response.status === HttpCode.NOT_FOUND) {
+        dispatch(loadOffer([]));
+      }
+      return error;
+    })
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
