@@ -1,13 +1,22 @@
 import React, {useState} from 'react';
+import {commentPost} from "../../store/api-actions";
+import {useDispatch} from "react-redux";
+import PropTypes from "prop-types";
 
-const CommentForm = () => {
+const CommentForm = ({id}) => {
   const [commentForm, setCommentForm] = useState({
     rating: ``,
     review: ``,
   });
+  const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    dispatch(commentPost({
+      id,
+      comment: commentForm.review,
+      rating: commentForm.rating,
+    }));
   };
 
   const handleFieldChange = (evt) => {
@@ -15,7 +24,7 @@ const CommentForm = () => {
     setCommentForm({...commentForm, [name]: value});
   };
 
-  const ratings = [1, 2, 3, 4, 5];
+  const ratings = [5, 4, 3, 2, 1];
 
   return (
     <form className="reviews__form form" onSubmit={handleSubmit}>
@@ -58,6 +67,9 @@ const CommentForm = () => {
       </div>
     </form>
   );
+};
+CommentForm.propTypes = {
+  id: PropTypes.string.isRequired
 };
 
 export default CommentForm;

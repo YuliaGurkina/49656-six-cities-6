@@ -10,12 +10,17 @@ import Map from "../map/map";
 import OfferList from "../offer-list/offer-list";
 import NotFound from "../not-found/not-found";
 import LoadingScreen from "../loading-screen/loading-screen";
+import {AuthorizationStatus} from "../../const";
 
 const Property = ({id}) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => getComments(state));
   const offer = useSelector((state) => getOffer(state));
   const {isDataOfferLoaded} = useSelector((state) => state.DATA);
+  const {authorizationStatus} = useSelector(
+      (state) => {
+        return state.USER;
+      });
 
   const OfferType =
     {
@@ -236,7 +241,9 @@ const Property = ({id}) => {
                 </div>
               </div>
               <ReviewsList countReviews={comments.length} comments={comments}>
-                <CommentForm/>
+                {(authorizationStatus === AuthorizationStatus.AUTH) &&
+                  <CommentForm id={id}/>
+                }
               </ReviewsList>
             </div>
           </div>
