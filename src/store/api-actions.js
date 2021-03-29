@@ -1,4 +1,4 @@
-import {loadOffers, requireAuthorization, redirectToRoute, loadComments} from "./action";
+import {loadOffers, requireAuthorization, redirectToRoute, loadComments, loadOffer} from "./action";
 import {APIRoute, AppRoute, AuthorizationStatus} from "../const";
 import {toast} from 'react-toastify';
 import {HttpCode} from "../services/api";
@@ -8,6 +8,11 @@ const notify = () => toast(`Incorrect Email`);
 export const fetchOfferList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => dispatch(loadOffers(data)))
+);
+
+export const fetchOffer = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.OFFERS}/${id}`)
+    .then(({data}) => dispatch(loadOffer(data)))
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (

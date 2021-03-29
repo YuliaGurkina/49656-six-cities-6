@@ -7,6 +7,9 @@ export const getOffers = (state) => {
 export const getComments = (state) => {
   return state[NameSpace.DATA].comments;
 };
+export const getOffer = (state) => {
+  return state[NameSpace.DATA].offer;
+};
 
 export const getCity = (state) => state[NameSpace.PROCESS].city.name;
 export const getSortOption = (state) => state[NameSpace.PROCESS].sortOption;
@@ -25,17 +28,17 @@ export const getOffersByCity = createSelector(
 
       switch (sortOption.id) {
         case 1:
-          offersByCitySort.sort(function (a, b) {
+          offersByCitySort.sort((a, b) => {
             return a.price - b.price;
           });
           break;
         case 2:
-          offersByCitySort.sort(function (a, b) {
+          offersByCitySort.sort((a, b) => {
             return b.price - a.price;
           });
-          break
+          break;
         case 3:
-          offersByCitySort.sort(function (a, b) {
+          offersByCitySort.sort((a, b) => {
             return a.rating - b.rating;
           });
       }

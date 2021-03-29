@@ -6,6 +6,7 @@ export const ActionType = {
   SELECT_OFFER: `selectOffer`,
   FILL_OFFERS: `fillOffers`,
   LOAD_OFFERS: `data/loadOffers`,
+  LOAD_OFFER: `data/loadOffer`,
   LOAD_COMMENTS: `data/loadComments`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `game/redirectToRoute`,
@@ -38,6 +39,12 @@ export const fillOffers = createAction(ActionType.FILL_OFFERS, (city) => {
 export const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => {
   return {
     payload: offers,
+  };
+});
+
+export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => {
+  return {
+    payload: offer,
   };
 });
 
