@@ -2,6 +2,8 @@ import {createAction} from '@reduxjs/toolkit';
 
 export const ActionType = {
   SELECT_CITY: `selectCity`,
+  SELECT_SORT_OPTION: `selectSortOptions`,
+  SELECT_OFFER: `selectOffer`,
   FILL_OFFERS: `fillOffers`,
   LOAD_OFFERS: `data/loadOffers`,
   LOAD_COMMENTS: `data/loadComments`,
@@ -12,6 +14,18 @@ export const ActionType = {
 export const selectCity = createAction(ActionType.SELECT_CITY, (city) => {
   return {
     payload: city,
+  };
+});
+
+export const selectSortOption = createAction(ActionType.SELECT_SORT_OPTION, (option) => {
+  return {
+    payload: option,
+  };
+});
+
+export const selectOffer = createAction(ActionType.SELECT_OFFER, (offer) => {
+  return {
+    payload: offer,
   };
 });
 

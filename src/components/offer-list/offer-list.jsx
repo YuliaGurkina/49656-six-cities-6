@@ -1,12 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from "../place-card/place-card";
 import offerProp from "../app/offer.prop";
+import {useDispatch} from "react-redux";
+import {selectOffer} from "../../store/action";
 
 const OfferList = (props) => {
-  const activeOffer = useState(0);
-  const setActiveOffer = activeOffer[1];
-
+  const dispatch = useDispatch();
+  const setActiveOffer = (offer) => {
+    dispatch(selectOffer(offer));
+  };
   const {offers, customCardClass, customCardImgClass, customCardInfoClass, widthImg = 260, heightImg = 200} = props;
 
   return (

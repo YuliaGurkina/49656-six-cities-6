@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import * as leaflet from "leaflet";
 
 import "leaflet/dist/leaflet.css";
+import {useSelector} from "react-redux";
 
 const Map = ({points}) => {
   const mapRef = useRef();
+  const {activeOffer} = useSelector((state) => state.PROCESS);
 
   const cityZoom = points[0].city.location.zoom;
   const cityCenter = {
@@ -14,11 +16,6 @@ const Map = ({points}) => {
   };
 
   useEffect(() => {
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
-
     mapRef.current = leaflet.map(`map`, {
       center: cityCenter,
       zoom: cityZoom,
@@ -34,30 +31,23 @@ const Map = ({points}) => {
       })
       .addTo(mapRef.current);
 
-    points.forEach((point) => {
-      leaflet.marker({
-        lat: point.location.latitude,
-        lng: point.location.longitude
-      },
-      {
-        icon
-      })
-        .addTo(mapRef.current)
-        .bindPopup(point.title);
-    });
-
     return () => {
       mapRef.current.remove();
     };
   }, []);
 
   useEffect(() => {
-    const icon = leaflet.icon({
+    const iconDefault = leaflet.icon({
       iconUrl: `img/pin.svg`,
+      iconSize: [30, 30]
+    });
+    const iconSelect = leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
       iconSize: [30, 30]
     });
 
     points.forEach((point) => {
+      const icon = activeOffer === point ? iconSelect : iconDefault;
       leaflet.marker({
         lat: point.location.latitude,
         lng: point.location.longitude
@@ -68,7 +58,7 @@ const Map = ({points}) => {
         .addTo(mapRef.current)
         .bindPopup(point.title);
     });
-  }, [points]);
+  }, [points, activeOffer]);
 
   return (
     <div id="map" className="map" style={{height: `500px`}}/>
