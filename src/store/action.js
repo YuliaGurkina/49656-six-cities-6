@@ -10,6 +10,7 @@ export const ActionType = {
   LOAD_COMMENTS: `data/loadComments`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `game/redirectToRoute`,
+  LOAD_FAVORITE: `loadFavorite`
 };
 
 export const selectCity = createAction(ActionType.SELECT_CITY, (city) => {
@@ -51,6 +52,12 @@ export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => {
 export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments) => {
   return {
     payload: comments,
+  };
+});
+
+export const loadFavorite = createAction(ActionType.LOAD_FAVORITE, (offers) => {
+  return {
+    payload: offers,
   };
 });
 

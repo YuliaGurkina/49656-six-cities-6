@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
 import Map from "../map/map";
@@ -9,6 +9,7 @@ import {fetchOfferList} from "../../store/api-actions";
 import {useSelector, useDispatch} from 'react-redux';
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import SortOptions from "../sort-options/sort-options";
+import MainEmpty from "../main-empty/main-empty";
 
 const Main = () => {
   const locations = [
@@ -43,6 +44,8 @@ const Main = () => {
   const offersCount = useSelector((state) => getOffersCount(state));
   const offersFiltered = useSelector((state) => getOffersByCity(state));
 
+  const [isExistenceOffers, setExistenceOffers] = useState(true);
+
   const dispatch = useDispatch();
 
   const onSelectCity = (selectedCity) => {
@@ -59,6 +62,12 @@ const Main = () => {
       dispatch(fetchOfferList());
     }
   }, [isDataLoaded]);
+
+  useEffect(() => {
+    if (isDataLoaded && !offersFiltered) {
+      setExistenceOffers(false);
+    }
+  }, [isDataLoaded, offersFiltered]);
 
   if (!isDataLoaded) {
     return (
@@ -78,31 +87,36 @@ const Main = () => {
           onSelect={onSelectCity}
         />
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offersCount} places to stay in {city.name}</b>
-              <SortOptions
-                onSelect={onSelectSortOptions}
-                sortOption={sortOption}
-              />
-              <div className="cities__places-list places__list tabs__content">
-                <OfferList
-                  offers={offersFiltered}
-                  customCardClass='cities__place-card'
-                  customCardImgClass='cities__image-wrapper'
+          {isExistenceOffers &&
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{offersCount} places to stay in {city.name}</b>
+                <SortOptions
+                  onSelect={onSelectSortOptions}
+                  sortOption={sortOption}
                 />
-              </div>
-            </section>
-            <div className="cities__right-section">
-              <section className="cities__map map">
-                <Map
-                  key={city.name}
-                  points={offersFiltered}
-                />
+                <div className="cities__places-list places__list tabs__content">
+                  <OfferList
+                    offers={offersFiltered}
+                    customCardClass='cities__place-card'
+                    customCardImgClass='cities__image-wrapper'
+                  />
+                </div>
               </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    key={city.name}
+                    points={offersFiltered}
+                  />
+                </section>
+              </div>
             </div>
-          </div>
+          }
+          {!isExistenceOffers &&
+            <MainEmpty city={city.name}/>
+          }
         </div>
       </main>
     </div>
