@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import Header from "../header/header";
 import CommentForm from "../comment-form/comment-form";
 import ReviewsList from "../reviews-list/reviews-list";
-import {fetchCommentsList, fetchOffer} from "../../store/api-actions";
+import {fetchCommentsList, fetchOffer, setFavoriteOffer} from "../../store/api-actions";
 import {useDispatch, useSelector} from "react-redux";
 import PropTypes from "prop-types";
 import {getComments, getOffer} from "../../selectors";
@@ -21,6 +21,10 @@ const Property = ({id}) => {
       (state) => {
         return state.USER;
       });
+  const handleFavoriteButtonClick = (item) => {
+    const status = +!item.isFavorite;
+    dispatch(setFavoriteOffer({id: item.id, status}));
+  };
 
   const OfferType =
     {
@@ -181,7 +185,14 @@ const Property = ({id}) => {
                 <h1 className="property__name">
                   {offer.title}
                 </h1>
-                <button className={`property__bookmark-button ${offer.isFavorite ? `place-card__bookmark-button--active` : ``} button`} type="button">
+                <button
+                  className={`property__bookmark-button ${offer.isFavorite ? `property__bookmark-button--active` : ``} button`}
+                  type="button"
+                  onClick={(evt) => {
+                    evt.preventDefault();
+                    handleFavoriteButtonClick(offer);
+                  }}
+                >
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>

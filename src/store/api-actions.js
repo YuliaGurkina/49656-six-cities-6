@@ -62,3 +62,11 @@ export const commentPost = ({id, comment, rating}) => (dispatch, _getState, api)
       return error;
     })
 );
+
+export const setFavoriteOffer = ({id, status}) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {})
+    .catch(function (error) {
+      dispatch(redirectToRoute(AppRoute.LOGIN))
+      return error;
+    })
+);

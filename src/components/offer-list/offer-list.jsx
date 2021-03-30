@@ -4,11 +4,16 @@ import PlaceCard from "../place-card/place-card";
 import offerProp from "../app/offer.prop";
 import {useDispatch} from "react-redux";
 import {selectOffer} from "../../store/action";
+import {setFavoriteOffer} from "../../store/api-actions";
 
 const OfferList = (props) => {
   const dispatch = useDispatch();
   const setActiveOffer = (offer) => {
     dispatch(selectOffer(offer));
+  };
+  const handleFavoriteButtonClick = ({id, isFavorite}) => {
+    const status = +!isFavorite;
+    dispatch(setFavoriteOffer({id, status}));
   };
   const {offers, customCardClass, customCardImgClass, customCardInfoClass, widthImg = 260, heightImg = 200} = props;
 
@@ -25,6 +30,10 @@ const OfferList = (props) => {
           heightImg={heightImg}
           handleMouseEnter={() => setActiveOffer(offer)}
           handleMouseLeave={() => setActiveOffer({})}
+          onClick={(evt) => {
+            evt.preventDefault();
+            handleFavoriteButtonClick(offer);
+          }}
         />
       )}
     </>
