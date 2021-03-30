@@ -1,4 +1,4 @@
-import {loadOffers, requireAuthorization, redirectToRoute, loadComments, loadOffer} from "./action";
+import {loadOffers, requireAuthorization, redirectToRoute, loadComments, loadOffer, loadFavorite} from "./action";
 import {APIRoute, AppRoute, AuthorizationStatus} from "../const";
 import {toast} from 'react-toastify';
 import {HttpCode} from "../services/api";
@@ -66,7 +66,12 @@ export const commentPost = ({id, comment, rating}) => (dispatch, _getState, api)
 export const setFavoriteOffer = ({id, status}) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.FAVORITE}/${id}/${status}`, {})
     .catch(function (error) {
-      dispatch(redirectToRoute(AppRoute.LOGIN))
+      dispatch(redirectToRoute(AppRoute.LOGIN));
       return error;
     })
+);
+
+export const fetchFavorite = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITE)
+    .then(({data}) => dispatch(loadFavorite(data)))
 );

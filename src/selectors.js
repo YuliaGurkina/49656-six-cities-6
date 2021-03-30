@@ -7,6 +7,9 @@ export const getOffers = (state) => {
 export const getComments = (state) => {
   return state[NameSpace.DATA].comments;
 };
+export const getFavorite = (state) => {
+  return state[NameSpace.DATA].favorite;
+};
 export const getOffer = (state) => {
   return state[NameSpace.DATA].offer;
 };
