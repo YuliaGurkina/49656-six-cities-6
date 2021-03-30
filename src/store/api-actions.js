@@ -8,6 +8,10 @@ const notify = () => toast(`Неправильный запрос. Провер�
 export const fetchOfferList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => dispatch(loadOffers(data)))
+    .catch(function (error) {
+      dispatch(loadOffers([]));
+      return error;
+    })
 );
 
 export const fetchOffer = (id) => (dispatch, _getState, api) => (
