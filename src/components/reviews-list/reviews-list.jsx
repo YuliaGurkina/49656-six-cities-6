@@ -2,12 +2,16 @@ import React from 'react';
 import Review from "../review/review";
 import PropTypes from "prop-types";
 
-const ReviewsList = ({countReviews, comments, children}) => {
+const ReviewsList = ({countReviews, comments, children, maxCountReviews = 10}) => {
+  const commentsSorted = comments.slice(0, maxCountReviews).sort((a, b) => {
+    return new Date(b.date) - new Date(a.date);
+  });
+
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{countReviews}</span></h2>
       <ul className="reviews__list">
-        {comments.map((item, i) =>
+        {commentsSorted.map((item, i) =>
           <Review
             key={`comment-${i}`}
             rating={item.rating}
@@ -23,6 +27,7 @@ const ReviewsList = ({countReviews, comments, children}) => {
 
 ReviewsList.propTypes = {
   countReviews: PropTypes.number.isRequired,
+  maxCountReviews: PropTypes.number,
   children: PropTypes.element,
   comments: PropTypes.arrayOf(PropTypes.shape({
     rating: PropTypes.number,

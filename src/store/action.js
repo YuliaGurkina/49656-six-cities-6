@@ -7,10 +7,11 @@ export const ActionType = {
   FILL_OFFERS: `fillOffers`,
   LOAD_OFFERS: `data/loadOffers`,
   LOAD_OFFER: `data/loadOffer`,
+  LOAD_NEARBY_OFFERS: `data/loadNearByOffer`,
   LOAD_COMMENTS: `data/loadComments`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `game/redirectToRoute`,
-  LOAD_FAVORITE: `loadFavorite`
+  LOAD_FAVORITE: `loadFavorite`,
 };
 
 export const selectCity = createAction(ActionType.SELECT_CITY, (city) => {
@@ -52,6 +53,12 @@ export const loadOffer = createAction(ActionType.LOAD_OFFER, (offer) => {
 export const loadComments = createAction(ActionType.LOAD_COMMENTS, (comments) => {
   return {
     payload: comments,
+  };
+});
+
+export const loadNearByOffer = createAction(ActionType.LOAD_NEARBY_OFFERS, (offers) => {
+  return {
+    payload: offers,
   };
 });
 

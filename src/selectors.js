@@ -13,6 +13,9 @@ export const getFavorite = (state) => {
 export const getOffer = (state) => {
   return state[NameSpace.DATA].offer;
 };
+export const getNearbyOffer = (state) => {
+  return state[NameSpace.DATA].nearbyOffers;
+};
 
 export const getCity = (state) => state[NameSpace.PROCESS].city.name;
 export const getSortOption = (state) => state[NameSpace.PROCESS].sortOption;

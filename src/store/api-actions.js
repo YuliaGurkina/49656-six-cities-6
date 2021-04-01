@@ -1,4 +1,12 @@
-import {loadOffers, requireAuthorization, redirectToRoute, loadComments, loadOffer, loadFavorite} from "./action";
+import {
+  loadOffers,
+  requireAuthorization,
+  redirectToRoute,
+  loadComments,
+  loadOffer,
+  loadFavorite,
+  loadNearByOffer,
+} from "./action";
 import {APIRoute, AppRoute, AuthorizationStatus} from "../const";
 import {toast} from 'react-toastify';
 import {HttpCode} from "../services/api";
@@ -49,12 +57,17 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 );
 
 export const fetchCommentsList = ({hotelId: id}) => (dispatch, _getState, api) => (
-  api.get(`${APIRoute.COMMETS}/${id}`, {id})
+  api.get(`${APIRoute.COMMENTS}/${id}`, {id})
     .then(({data}) => dispatch(loadComments(data)))
 );
 
+export const fetchNearByOfferList = ({hotelId: id}) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.OFFERS}/${id}/nearby`, {id})
+    .then(({data}) => dispatch(loadNearByOffer(data)))
+);
+
 export const commentPost = ({id, comment, rating}) => (dispatch, _getState, api) => (
-  api.post(`${APIRoute.COMMETS}/${id}`, {comment, rating})
+  api.post(`${APIRoute.COMMENTS}/${id}`, {comment, rating})
     .catch(function (error) {
       if (error.response.status === HttpCode.BAD_REQUEST) {
         notify();
