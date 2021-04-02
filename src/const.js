@@ -19,10 +19,10 @@ export const APIRoute = {
 };
 
 export const OfferType = {
-  room: `Private Room`,
-  apartment: `Apartment`,
-  hotel: `Hotel`,
-  house: `House`
+  ROOM: `Private Room`,
+  APARTMENT: `Apartment`,
+  HOTEL: `Hotel`,
+  HOUSE: `House`
 };
 
 export const monthNames = [
@@ -39,3 +39,8 @@ export const monthNames = [
   `November`,
   `December`
 ];
+
+export const countLettersReview = {
+  MIN: 50,
+  MAX: 300
+};

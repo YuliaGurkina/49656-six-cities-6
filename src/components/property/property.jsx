@@ -17,7 +17,7 @@ const Property = ({id}) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => getComments(state));
   const offer = useSelector((state) => getOffer(state));
-  const nearbyOffers = useSelector((state) => getNearbyOffer(state));
+  const nearbyOffers = useSelector((state) => getNearbyOffer(state)).slice(0, 3);
   const {isDataOfferLoaded} = useSelector((state) => state.DATA);
   const {authorizationStatus} = useSelector((state) => state.USER);
   const pointsForMap = Object.assign([], nearbyOffers);
@@ -25,8 +25,13 @@ const Property = ({id}) => {
 
   const handleFavoriteButtonClick = (item) => {
     const status = +!item.isFavorite;
-    dispatch(setFavoriteOffer({id: item.id, status}));
+    dispatch(setFavoriteOffer({id: item.id, status}))
+      .then(() => dispatch(fetchNearByOfferList({hotelId: item.id})));
   };
+
+  useEffect(() => {
+    dispatch(fetchCommentsList({hotelId: id}));
+  }, [nearbyOffers]);
 
   useEffect(() => {
     dispatch(fetchCommentsList({hotelId: id}));
@@ -107,7 +112,7 @@ const Property = ({id}) => {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {OfferType[offer.type]}
+                  {OfferType[offer.type.toUpperCase()]}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {offer.bedrooms} Bedrooms
@@ -170,7 +175,12 @@ const Property = ({id}) => {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              <OfferList offers={nearbyOffers} customCardClass='near-places__card' customCardImgClass='near-places__image-wrapper'/>
+              <OfferList
+                offers={nearbyOffers}
+                customCardClass='near-places__card'
+                customCardImgClass='near-places__image-wrapper'
+                handleFavoriteButtonClick={handleFavoriteButtonClick}
+              />
             </div>
           </section>
         </div>

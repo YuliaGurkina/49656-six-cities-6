@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {AppRoute, AuthorizationStatus} from '../../const';
+import LoadingScreen from "../loading-screen/loading-screen";
 
 
 const PrivateRoute = ({render, path, exact}) => {
-  const {authorizationStatus} = useSelector(
+  const {authorizationStatus, isLoading} = useSelector(
       (state) => {
         return state.USER;
       });
+  if (isLoading) {
+    return <LoadingScreen/>;
+  }
 
   return (
     <Route

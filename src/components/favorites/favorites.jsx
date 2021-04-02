@@ -4,7 +4,7 @@ import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
 import {getFavorite} from "../../selectors";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchFavorite} from "../../store/api-actions";
+import {fetchFavorite, setFavoriteOffer} from "../../store/api-actions";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -42,6 +42,12 @@ const Favorites = () => {
     });
   }
 
+  const handleFavoriteButtonClick = (item) => {
+    const status = +!item.isFavorite;
+    dispatch(setFavoriteOffer({id: item.id, status}))
+      .then(() => dispatch(fetchFavorite()));
+  };
+
   useEffect(() => {
     dispatch(fetchFavorite());
   }, []);
@@ -75,6 +81,7 @@ const Favorites = () => {
                         customCardInfoClass='favorites__card-info'
                         widthImg={150}
                         heightImg={110}
+                        handleFavoriteButtonClick={handleFavoriteButtonClick}
                       />
                     </div>
                   </li>

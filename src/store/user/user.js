@@ -4,6 +4,7 @@ import {requireAuthorization} from "../action";
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  isLoading: true
 };
 
 const user = createReducer(initialState, (builder) => {
@@ -11,6 +12,7 @@ const user = createReducer(initialState, (builder) => {
     return {
       ...state,
       authorizationStatus: action.payload,
+      isLoading: false,
     };
   });
 });

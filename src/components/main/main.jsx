@@ -5,7 +5,7 @@ import Map from "../map/map";
 import CitiesList from "../cities-list/cities-list";
 import {selectCity, fillOffers, selectSortOption} from '../../store/action';
 import LoadingScreen from '../loading-screen/loading-screen';
-import {fetchOfferList} from "../../store/api-actions";
+import {fetchOfferList, setFavoriteOffer} from "../../store/api-actions";
 import {useSelector, useDispatch} from 'react-redux';
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import SortOptions from "../sort-options/sort-options";
@@ -57,6 +57,12 @@ const Main = () => {
     dispatch(selectSortOption(optionSort));
   };
 
+  const handleFavoriteButtonClick = ({id, isFavorite}) => {
+    const status = +!isFavorite;
+    dispatch(setFavoriteOffer({id, status}))
+      .then(() => dispatch(fetchOfferList()));
+  };
+
   useEffect(() => {
     if (!isDataLoaded) {
       dispatch(fetchOfferList());
@@ -101,6 +107,7 @@ const Main = () => {
                     offers={offersFiltered}
                     customCardClass='cities__place-card'
                     customCardImgClass='cities__image-wrapper'
+                    handleFavoriteButtonClick={handleFavoriteButtonClick}
                   />
                 </div>
               </section>
