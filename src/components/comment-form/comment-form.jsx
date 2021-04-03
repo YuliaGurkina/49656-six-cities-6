@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {commentPost, fetchCommentsList} from "../../store/api-actions";
 import {useDispatch} from "react-redux";
 import PropTypes from "prop-types";
-import {countLettersReview} from "../../const";
+import {CountLettersReview} from "../../const";
 
 const CommentForm = ({id}) => {
   const [commentForm, setCommentForm] = useState({
@@ -88,7 +88,7 @@ const CommentForm = ({id}) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={commentForm.review.length < countLettersReview.MIN || commentForm.review.length > countLettersReview.MAX || !commentForm.rating}>Submit</button>
+          disabled={commentForm.review.length < CountLettersReview.MIN || commentForm.review.length > CountLettersReview.MAX || !commentForm.rating}>Submit</button>
       </div>
     </form>
   );

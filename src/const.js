@@ -25,7 +25,7 @@ export const OfferType = {
   HOUSE: `House`
 };
 
-export const monthNames = [
+export const MonthNames = [
   `January`,
   `February`,
   `March`,
@@ -40,7 +40,7 @@ export const monthNames = [
   `December`
 ];
 
-export const countLettersReview = {
+export const CountLettersReview = {
   MIN: 50,
   MAX: 300
 };

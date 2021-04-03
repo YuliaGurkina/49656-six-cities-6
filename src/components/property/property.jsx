@@ -17,7 +17,7 @@ const Property = ({id}) => {
   const dispatch = useDispatch();
   const comments = useSelector((state) => getComments(state));
   const offer = useSelector((state) => getOffer(state));
-  const nearbyOffers = useSelector((state) => getNearbyOffer(state)).slice(0, 3);
+  const nearbyOffers = useSelector((state) => getNearbyOffer(state));
   const {isDataOfferLoaded} = useSelector((state) => state.DATA);
   const {authorizationStatus} = useSelector((state) => state.USER);
   const pointsForMap = Object.assign([], nearbyOffers);
@@ -26,12 +26,8 @@ const Property = ({id}) => {
   const handleFavoriteButtonClick = (item) => {
     const status = +!item.isFavorite;
     dispatch(setFavoriteOffer({id: item.id, status}))
-      .then(() => dispatch(fetchNearByOfferList({hotelId: item.id})));
+      .then(() => dispatch(fetchNearByOfferList({hotelId: offer.id})));
   };
-
-  useEffect(() => {
-    dispatch(fetchCommentsList({hotelId: id}));
-  }, [nearbyOffers]);
 
   useEffect(() => {
     dispatch(fetchCommentsList({hotelId: id}));
