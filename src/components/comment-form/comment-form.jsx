@@ -88,7 +88,7 @@ const CommentForm = ({id}) => {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={commentForm.review.length <CountLettersReview.MIN || commentForm.review.length > CountLettersReview.MAX || !commentForm.rating}>Submit</button>
+          disabled={commentForm.review.length < CountLettersReview.MIN || commentForm.review.length > CountLettersReview.MAX || !commentForm.rating}>Submit</button>
       </div>
     </form>
   );
