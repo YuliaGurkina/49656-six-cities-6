@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import {monthNames} from "../../const";
 
 const Review = ({comment, user, date, rating}) => {
-  const widthRating = rating * 100 / 5;
+  const widthRating = Math.round(rating) * 100 / 5;
+  const dateReview = new Date(date);
 
   return (
     <li className="reviews__item">
@@ -26,7 +28,7 @@ const Review = ({comment, user, date, rating}) => {
         <p className="reviews__text">
           {comment}
         </p>
-        <time className="reviews__time" dateTime="2019-04-24">{date.getMonth} {date.getFullYear}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{monthNames[dateReview.getMonth()]} {dateReview.getFullYear()}</time>
       </div>
     </li>
   );

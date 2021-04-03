@@ -1,17 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {OfferType} from "../../const";
 
 const PlaceCard = (props) => {
   const {offer, handleMouseEnter, handleMouseLeave, customCardClass, customCardImgClass, customCardInfoClass, widthImg, heightImg, onClick} = props;
-  const {price, title, type, previewImage, id} = offer;
+  const {price, title, type, previewImage, id, isPremium, rating} = offer;
 
   return (
     <article className={`${customCardClass} place-card`}
       onMouseEnter={() => handleMouseEnter()}
       onMouseLeave={() => handleMouseLeave()}
     >
-      {offer.isPremium &&
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
@@ -21,7 +22,7 @@ const PlaceCard = (props) => {
           <img className="place-card__image" src={previewImage} width={widthImg} height={heightImg} alt="Place image"/>
         </Link>
       </div>
-      <div className={`${customCardInfoClass} place-card__info`}>
+      <div className={`${customCardInfoClass ? customCardInfoClass : ``} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -40,14 +41,16 @@ const PlaceCard = (props) => {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `100%`}}></span>
+            {rating &&
+            <span style={{width: `${Math.round(rating) * 100 / 5}%`}}/>
+            }
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
           <Link to={`offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{OfferType[type.toUpperCase()]}</p>
       </div>
     </article>
   );
@@ -57,6 +60,7 @@ PlaceCard.propTypes = {
   offer: PropTypes.shape({
     price: PropTypes.number.isRequired,
     id: PropTypes.number.isRequired,
+    rating: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     previewImage: PropTypes.string.isRequired,

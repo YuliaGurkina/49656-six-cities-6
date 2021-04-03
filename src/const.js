@@ -14,6 +14,33 @@ export const APIRoute = {
   OFFERS: `/hotels`,
   LOGIN: `/login`,
   LOGOUT: `/logout`,
-  COMMETS: `/comments`,
+  COMMENTS: `/comments`,
   FAVORITE: `favorite`
+};
+
+export const OfferType = {
+  ROOM: `Private Room`,
+  APARTMENT: `Apartment`,
+  HOTEL: `Hotel`,
+  HOUSE: `House`
+};
+
+export const monthNames = [
+  `January`,
+  `February`,
+  `March`,
+  `April`,
+  `May`,
+  `June`,
+  `July`,
+  `August`,
+  `September`,
+  `October`,
+  `November`,
+  `December`
+];
+
+export const countLettersReview = {
+  MIN: 50,
+  MAX: 300
 };

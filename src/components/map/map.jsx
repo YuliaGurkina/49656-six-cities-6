@@ -14,6 +14,14 @@ const Map = ({points}) => {
     lat: points[0].city.location.latitude,
     lng: points[0].city.location.longitude,
   };
+  const iconDefault = leaflet.icon({
+    iconUrl: `img/pin.svg`,
+    iconSize: [30, 30]
+  });
+  const iconSelect = leaflet.icon({
+    iconUrl: `img/pin-active.svg`,
+    iconSize: [30, 30]
+  });
 
   useEffect(() => {
     mapRef.current = leaflet.map(`map`, {
@@ -31,21 +39,24 @@ const Map = ({points}) => {
       })
       .addTo(mapRef.current);
 
+    points.forEach((point) => {
+      const icon = activeOffer === point ? iconSelect : iconDefault;
+      leaflet.marker({
+        lat: point.location.latitude,
+        lng: point.location.longitude
+      },
+      {
+        icon
+      })
+        .addTo(mapRef.current)
+        .bindPopup(point.title);
+    });
     return () => {
       mapRef.current.remove();
     };
   }, []);
 
   useEffect(() => {
-    const iconDefault = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
-    const iconSelect = leaflet.icon({
-      iconUrl: `img/pin-active.svg`,
-      iconSize: [30, 30]
-    });
-
     points.forEach((point) => {
       const icon = activeOffer === point ? iconSelect : iconDefault;
       leaflet.marker({
@@ -61,7 +72,7 @@ const Map = ({points}) => {
   }, [points, activeOffer]);
 
   return (
-    <div id="map" className="map" style={{height: `500px`}}/>
+    <div id="map" className="map" style={{height: `100%`}}/>
   );
 };
 
