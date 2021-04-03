@@ -2,10 +2,17 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {OfferType} from "../../const";
+import {useHistory} from "react-router-dom";
 
 const PlaceCard = (props) => {
   const {offer, handleMouseEnter, handleMouseLeave, customCardClass, customCardImgClass, customCardInfoClass, widthImg, heightImg, onClick} = props;
   const {price, title, type, previewImage, id, isPremium, rating} = offer;
+  let history = useHistory();
+
+  const handleClick = (evt) => {
+    evt.preventDefault();
+    history.push(`/offer/${id}`);
+  };
 
   return (
     <article className={`${customCardClass} place-card`}
@@ -17,10 +24,10 @@ const PlaceCard = (props) => {
           <span>Premium</span>
         </div>
       }
-      <div className={`${customCardImgClass} place-card__image-wrapper`}>
-        <Link to={`offer/${id}`}>
+      <div className={`${customCardImgClass} place-card__image-wrapper`} onClick={handleClick}>
+        <a>
           <img className="place-card__image" src={previewImage} width={widthImg} height={heightImg} alt="Place image"/>
-        </Link>
+        </a>
       </div>
       <div className={`${customCardInfoClass ? customCardInfoClass : ``} place-card__info`}>
         <div className="place-card__price-wrapper">

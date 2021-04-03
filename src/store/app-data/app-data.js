@@ -6,6 +6,7 @@ const initialState = {
   comments: [],
   isDataLoaded: false,
   isDataOfferLoaded: false,
+  isDataFavoritesLoaded: false,
   offer: [],
   favorite: [],
   nearbyOffers: []
@@ -27,6 +28,7 @@ const appData = createReducer(initialState, (builder) => {
     state.nearbyOffers = action.payload;
   });
   builder.addCase(loadFavorite, (state, action) => {
+    state.isDataFavoritesLoaded = true;
     state.favorite = action.payload;
   });
 });

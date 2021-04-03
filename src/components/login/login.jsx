@@ -11,13 +11,14 @@ const Login = () => {
   const dispatch = useDispatch();
   const [validEmail, setValidEmail] = useState(true);
   const notify = () => toast(`Incorrect Email`);
+  const notifyPassword = () => toast(`Password can't be empty`);
 
   const handleBlur = () => {
     if (loginRef.current.value === ``) {
       setValidEmail(false);
     }
-    const re = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
-    setValidEmail(re.test(loginRef.current.value));
+    const RE = /^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i;
+    setValidEmail(RE.test(loginRef.current.value));
   };
   const handleFocus = () => {
     setValidEmail(true);
@@ -31,10 +32,23 @@ const Login = () => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
+    if (loginRef.current.value === `` || passwordRef.current.value === ``) {
+      if (loginRef.current.value === ``) {
+        setValidEmail(false);
+      }
+
+      if (passwordRef.current.value === ``) {
+        notifyPassword();
+      }
+
+      return false;
+    }
     dispatch(login({
       login: loginRef.current.value,
       password: passwordRef.current.value,
     }));
+    return true;
   };
 
   const {authorizationStatus} = useSelector(

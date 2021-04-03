@@ -10,34 +10,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import SortOptions from "../sort-options/sort-options";
 import MainEmpty from "../main-empty/main-empty";
+import {Locations} from "../../const";
 
 const Main = () => {
-  const locations = [
-    {
-      name: `Paris`,
-      id: 1,
-    },
-    {
-      name: `Cologne`,
-      id: 2,
-    },
-    {
-      name: `Brussels`,
-      id: 3,
-    },
-    {
-      name: `Amsterdam`,
-      id: 4,
-    },
-    {
-      name: `Hamburg`,
-      id: 5,
-    },
-    {
-      name: `Dusseldorf`,
-      id: 6,
-    }
-  ];
   const {city} = useSelector((state) => state.PROCESS);
   const {sortOption} = useSelector((state) => state.PROCESS);
   const {isDataLoaded} = useSelector((state) => state.DATA);
@@ -88,12 +63,12 @@ const Main = () => {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList
-          locations={locations}
+          locations={Locations}
           selectedCity={city}
           onSelect={onSelectCity}
         />
         <div className="cities">
-          {isExistenceOffers &&
+          {isExistenceOffers ?
             <div className="cities__places-container container">
               <section className="cities__places places">
                 <h2 className="visually-hidden">Places</h2>
@@ -108,6 +83,7 @@ const Main = () => {
                     customCardClass='cities__place-card'
                     customCardImgClass='cities__image-wrapper'
                     handleFavoriteButtonClick={handleFavoriteButtonClick}
+                    isActiveItemNeeded={true}
                   />
                 </div>
               </section>
@@ -120,8 +96,7 @@ const Main = () => {
                 </section>
               </div>
             </div>
-          }
-          {!isExistenceOffers &&
+            :
             <MainEmpty city={city.name}/>
           }
         </div>

@@ -1,38 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {selectSortOption} from "../../store/action";
 import PropTypes from "prop-types";
+import {Options} from "../../const";
 
 const SortOptions = ({onSelect, sortOption}) => {
-  const options = [
-    {
-      name: `Popular`,
-      id: 0
-    },
-    {
-      name: `Price: low to high`,
-      id: 1
-    },
-    {
-      name: `Price: high to low`,
-      id: 2
-    },
-    {
-      name: `Top rated first`,
-      id: 3
-    },
-  ];
+  const [isOpenSortMenu, setOpenSortMenu] = useState(false);
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
-      <span className="places__sorting-type" tabIndex="0">
+      <span
+        className="places__sorting-type"
+        tabIndex="0"
+        onClick={() => (
+          setOpenSortMenu(!isOpenSortMenu)
+        )}
+      >
         {sortOption.name}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"/>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
-        {options.map((item, i) => {
+      <ul className={`places__options places__options--custom ${isOpenSortMenu ? `places__options--opened` : ``}`}>
+        {Options.map((item, i) => {
           return <li
             className={`places__option ${sortOption.name === item.name ? `places__option--active` : ``}`}
             tabIndex="0"
