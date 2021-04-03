@@ -4,13 +4,14 @@ import CommentForm from "../comment-form/comment-form";
 import ReviewsList from "../reviews-list/reviews-list";
 import {fetchCommentsList, fetchNearByOfferList, fetchOffer, setFavoriteOffer} from "../../store/api-actions";
 import {useDispatch, useSelector} from "react-redux";
+import {useLocation} from "react-router-dom";
 import PropTypes from "prop-types";
 import {getComments, getNearbyOffer, getOffer} from "../../selectors";
 import Map from "../map/map";
 import OfferList from "../offer-list/offer-list";
 import NotFound from "../not-found/not-found";
 import LoadingScreen from "../loading-screen/loading-screen";
-import {AuthorizationStatus, OfferType} from "../../const";
+import {OfferType} from "../../const";
 import {selectOffer} from "../../store/action";
 
 const Property = ({id}) => {
@@ -19,14 +20,20 @@ const Property = ({id}) => {
   const offer = useSelector((state) => getOffer(state));
   const nearbyOffers = useSelector((state) => getNearbyOffer(state));
   const {isDataOfferLoaded} = useSelector((state) => state.DATA);
-  const {authorizationStatus} = useSelector((state) => state.USER);
   const pointsForMap = Object.assign([], nearbyOffers);
   pointsForMap[pointsForMap.length] = offer;
+  const {pathname} = useLocation();
 
   const handleFavoriteButtonClick = (item) => {
     const status = +!item.isFavorite;
     dispatch(setFavoriteOffer({id: item.id, status}))
       .then(() => dispatch(fetchNearByOfferList({hotelId: offer.id})));
+  };
+
+  const handleCurrentOfferFavoriteButtonClick = (item) => {
+    const status = +!item.isFavorite;
+    dispatch(setFavoriteOffer({id: item.id, status}))
+      .then(() => dispatch(fetchOffer(item.id)));
   };
 
   useEffect(() => {
@@ -39,11 +46,15 @@ const Property = ({id}) => {
 
   useEffect(() => {
     dispatch(fetchOffer(id));
-  }, []);
+  }, [id]);
 
   useEffect(() => {
     dispatch(selectOffer(offer));
   }, [offer]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   if (!isDataOfferLoaded) {
     return (
@@ -88,7 +99,7 @@ const Property = ({id}) => {
                   type="button"
                   onClick={(evt) => {
                     evt.preventDefault();
-                    handleFavoriteButtonClick(offer);
+                    handleCurrentOfferFavoriteButtonClick(offer);
                   }}
                 >
                   <svg className="property__bookmark-icon" width="31" height="33">
@@ -155,9 +166,7 @@ const Property = ({id}) => {
                 </div>
               </div>
               <ReviewsList countReviews={comments.length} comments={comments}>
-                {(authorizationStatus === AuthorizationStatus.AUTH) &&
-                  <CommentForm id={id}/>
-                }
+                <CommentForm id={id}/>
               </ReviewsList>
             </div>
           </div>

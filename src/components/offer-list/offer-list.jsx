@@ -11,7 +11,15 @@ const OfferList = (props) => {
   const setActiveOffer = (offer) => {
     dispatch(selectOffer(offer));
   };
-  const {offers, customCardClass, customCardImgClass, customCardInfoClass, widthImg = 260, heightImg = 200} = props;
+  const {
+    offers,
+    customCardClass,
+    customCardImgClass,
+    customCardInfoClass,
+    widthImg = 260,
+    heightImg = 200,
+    isActiveItemNeeded = false
+  } = props;
 
   return (
     <>
@@ -24,8 +32,8 @@ const OfferList = (props) => {
           customCardInfoClass={customCardInfoClass}
           widthImg={widthImg}
           heightImg={heightImg}
-          handleMouseEnter={() => setActiveOffer(offer)}
-          handleMouseLeave={() => setActiveOffer({})}
+          handleMouseEnter={isActiveItemNeeded ? () => setActiveOffer(offer) : () => {}}
+          handleMouseLeave={isActiveItemNeeded ? () => setActiveOffer({}) : () => {}}
           onClick={(evt) => {
             evt.preventDefault();
             handleFavoriteButtonClick(offer);
@@ -44,6 +52,7 @@ OfferList.propTypes = {
   widthImg: PropTypes.number,
   heightImg: PropTypes.number,
   handleFavoriteButtonClick: PropTypes.func.isRequired,
+  isActiveItemNeeded: PropTypes.bool,
 };
 
 export default OfferList;

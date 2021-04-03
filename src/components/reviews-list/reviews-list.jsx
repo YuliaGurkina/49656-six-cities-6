@@ -1,11 +1,14 @@
 import React from 'react';
 import Review from "../review/review";
 import PropTypes from "prop-types";
+import {AuthorizationStatus} from "../../const";
+import {useSelector} from "react-redux";
 
 const ReviewsList = ({countReviews, comments, children, maxCountReviews = 10}) => {
   const commentsSorted = comments.slice(0, maxCountReviews).sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });
+  const {authorizationStatus} = useSelector((state) => state.USER);
 
   return (
     <section className="property__reviews reviews">
@@ -20,7 +23,10 @@ const ReviewsList = ({countReviews, comments, children, maxCountReviews = 10}) =
             user={{name: item.user.name, avatarUrl: item.user.avatarUrl}}/>
         )}
       </ul>
-      {children}
+
+      {(authorizationStatus === AuthorizationStatus.AUTH) &&
+        children
+      }
     </section>
   );
 };
