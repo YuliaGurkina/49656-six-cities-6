@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {OfferType} from "../../const";
 import {useHistory} from "react-router-dom";
@@ -24,10 +23,8 @@ const PlaceCard = (props) => {
           <span>Premium</span>
         </div>
       }
-      <div className={`${customCardImgClass} place-card__image-wrapper`} onClick={handleClick}>
-        <a>
-          <img className="place-card__image" src={previewImage} width={widthImg} height={heightImg} alt="Place image"/>
-        </a>
+      <div className={`${customCardImgClass} place-card__image-wrapper`}>
+        <img className="place-card__image" src={previewImage} width={widthImg} height={heightImg} alt="Place image"/>
       </div>
       <div className={`${customCardInfoClass ? customCardInfoClass : ``} place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -55,7 +52,7 @@ const PlaceCard = (props) => {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${id}`}>{title}</Link>
+          <a onClick={handleClick}>{title}</a>
         </h2>
         <p className="place-card__type">{OfferType[type.toUpperCase()]}</p>
       </div>

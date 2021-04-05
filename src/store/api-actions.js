@@ -6,6 +6,7 @@ import {
   loadOffer,
   loadFavorite,
   loadNearByOffer,
+  loadUserData,
 } from "./action";
 import {APIRoute, AppRoute, AuthorizationStatus} from "../const";
 import {toast} from 'react-toastify';
@@ -35,6 +36,7 @@ export const fetchOffer = (id) => (dispatch, _getState, api) => (
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
+    .then(({data}) => dispatch(loadUserData(data)))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
     .catch(function (error) {
@@ -52,6 +54,7 @@ export const logOut = ({login: email, password}) => (dispatch, _getState, api) =
 
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
+    .then(({data}) => dispatch(loadUserData(data)))
     .then(() => dispatch(requireAuthorization(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );

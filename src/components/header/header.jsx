@@ -2,10 +2,19 @@ import React from 'react';
 import {Link} from "react-router-dom";
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {useSelector} from "react-redux";
+import LoadingScreen from '../loading-screen/loading-screen';
 
 const Header = () => {
   const {authorizationStatus} = useSelector((state) => state.USER);
+  const {user} = useSelector((state) => state.USER);
+  const {isUserDataLoaded} = useSelector((state) => state.USER);
 
+  if (authorizationStatus === AuthorizationStatus.AUTH && !isUserDataLoaded) {
+    return (
+      <LoadingScreen/>
+    );
+
+  }
   return (
     <header className="header">
       <div className="container">
@@ -23,7 +32,7 @@ const Header = () => {
                   to={authorizationStatus === AuthorizationStatus.AUTH ? `${AppRoute.FAVORITES}` : `${AppRoute.LOGIN}`}>
                   <div className="header__avatar-wrapper user__avatar-wrapper"/>
                   {authorizationStatus === AuthorizationStatus.AUTH ?
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{user.email}</span>
                     :
                     <span className="header__login">Sign in</span>
                   }

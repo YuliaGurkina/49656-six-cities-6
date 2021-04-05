@@ -30,6 +30,7 @@ const SortOptions = ({onSelect, sortOption}) => {
             onClick={() => {
               selectSortOption(item);
               onSelect(item);
+              setOpenSortMenu(!isOpenSortMenu);
             }}
           >{item.name}</li>;
         })}

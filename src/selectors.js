@@ -45,7 +45,7 @@ export const getOffersByCity = createSelector(
           break;
         case 3:
           offersByCitySort.sort((a, b) => {
-            return a.rating - b.rating;
+            return b.rating - a.rating;
           });
       }
 
