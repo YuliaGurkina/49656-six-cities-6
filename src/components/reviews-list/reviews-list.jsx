@@ -14,9 +14,9 @@ const ReviewsList = ({countReviews, comments, children, maxCountReviews = MAX_CO
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{countReviews}</span></h2>
       <ul className="reviews__list">
-        {commentsSorted.map((item, i) =>
+        {commentsSorted.map((item) =>
           <Review
-            key={`comment-${i}`}
+            key={`comment-${item.id}`}
             rating={item.rating}
             comment={item.comment}
             date={item.date}

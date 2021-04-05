@@ -46,12 +46,12 @@ const Favorites = () => {
             <section className="favorites">
               <h1 className="favorites__title">{favorite ? `Saved listing` : `Nothing yet saved`}</h1>
               <ul className="favorites__list">
-                {offersByCity && offersByCity.map((items, i) => {
+                {offersByCity && offersByCity.map((items) => {
                   if (!items.length) {
                     return false;
                   }
                   return (
-                    <li className="favorites__locations-items" key={`locations-${i}`}>
+                    <li className="favorites__locations-items" key={`locations-${items[0].city.name}`}>
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
                           <Link

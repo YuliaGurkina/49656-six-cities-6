@@ -22,11 +22,11 @@ const SortOptions = ({onSelect, sortOption}) => {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isOpenSortMenu ? `places__options--opened` : ``}`}>
-        {options.map((item, i) => {
+        {options.map((item) => {
           return <li
             className={`places__option ${sortOption.name === item.name ? `places__option--active` : ``}`}
             tabIndex="0"
-            key={`option-${i}`}
+            key={`option-${item.name}`}
             onClick={() => {
               selectSortOption(item);
               onSelect(item);

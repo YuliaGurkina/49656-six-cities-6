@@ -74,9 +74,9 @@ const Property = ({id}) => {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.images && offer.images.slice(0, 6).map((srcImg, i) => {
+              {offer.images && offer.images.slice(0, 6).map((srcImg) => {
                 return (
-                  <div className="property__image-wrapper" key={`image-${i}`}>
+                  <div className="property__image-wrapper" key={`image-${srcImg}`}>
                     <img className="property__image" src={srcImg} alt="Photo studio"/>
                   </div>
                 );
@@ -135,8 +135,8 @@ const Property = ({id}) => {
               <div className="property__inside">
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
-                  {offer.goods && offer.goods.map((item, i) => {
-                    return <li className="property__inside-item" key={`goods-${i}`}>{item}</li>;
+                  {offer.goods && offer.goods.map((item) => {
+                    return <li className="property__inside-item" key={`goods-${item}`}>{item}</li>;
                   })}
                 </ul>
               </div>
