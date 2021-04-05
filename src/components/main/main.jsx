@@ -23,12 +23,12 @@ const Main = () => {
 
   const dispatch = useDispatch();
 
-  const onSelectCity = (selectedCity) => {
+  const handleSelectCity = (selectedCity) => {
     dispatch(selectCity(selectedCity.name));
     dispatch(fillOffers(selectedCity.name));
   };
 
-  const onSelectSortOptions = (optionSort) => {
+  const handleSelectSortOptions = (optionSort) => {
     dispatch(selectSortOption(optionSort));
   };
 
@@ -67,7 +67,7 @@ const Main = () => {
         <CitiesList
           locations={locations}
           selectedCity={city}
-          onSelect={onSelectCity}
+          onSelect={handleSelectCity}
         />
         <div className="cities">
           {isExistenceOffers ?
@@ -76,7 +76,7 @@ const Main = () => {
                 <h2 className="visually-hidden">Places</h2>
                 <b className="places__found">{offersCount} places to stay in {city.name}</b>
                 <SortOptions
-                  onSelect={onSelectSortOptions}
+                  onSelect={handleSelectSortOptions}
                   sortOption={sortOption}
                 />
                 <div className="cities__places-list places__list tabs__content">
