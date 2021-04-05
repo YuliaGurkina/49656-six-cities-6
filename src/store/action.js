@@ -1,18 +1,18 @@
 import {createAction} from '@reduxjs/toolkit';
 
 export const ActionType = {
-  SELECT_CITY: `selectCity`,
-  SELECT_SORT_OPTION: `selectSortOptions`,
-  SELECT_OFFER: `selectOffer`,
-  FILL_OFFERS: `fillOffers`,
+  SELECT_CITY: `process/selectCity`,
+  SELECT_SORT_OPTION: `process/sselectSortOptions`,
+  SELECT_OFFER: `process/sselectOffer`,
+  FILL_OFFERS: `data/fillOffers`,
   LOAD_OFFERS: `data/loadOffers`,
   LOAD_OFFER: `data/loadOffer`,
   LOAD_NEARBY_OFFERS: `data/loadNearByOffer`,
   LOAD_COMMENTS: `data/loadComments`,
   REQUIRED_AUTHORIZATION: `user/requiredAuthorization`,
   REDIRECT_TO_ROUTE: `game/redirectToRoute`,
-  LOAD_FAVORITE: `loadFavorite`,
-  LOAD_USER_DATA: `loadUserData`,
+  LOAD_FAVORITE: `data/loadFavorite`,
+  LOAD_USER_DATA: `user/loadUserData`,
 };
 
 export const selectCity = createAction(ActionType.SELECT_CITY, (city) => {
