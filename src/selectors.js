@@ -19,6 +19,7 @@ export const getNearbyOffer = (state) => {
 
 export const getCity = (state) => state[NameSpace.PROCESS].city.name;
 export const getSortOption = (state) => state[NameSpace.PROCESS].sortOption;
+export const getLocations = (state) => state[NameSpace.PROCESS].locations;
 
 export const getOffersByCity = createSelector(
     getOffers,
@@ -50,6 +51,20 @@ export const getOffersByCity = createSelector(
       }
 
       return offersByCitySort;
+    }
+);
+
+export const getOffersGroupedByCity = createSelector(
+    getFavorite,
+    getLocations,
+    (favorite, locations) => {
+      let offersGroupedByCity = [];
+      if (favorite.length) {
+        locations.forEach((location) => {
+          offersGroupedByCity[location.id] = favorite.filter((item) => item.city.name === location.name);
+        });
+      }
+      return offersGroupedByCity;
     }
 );
 

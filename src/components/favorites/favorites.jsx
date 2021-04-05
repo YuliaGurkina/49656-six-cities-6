@@ -3,23 +3,19 @@ import {Link} from "react-router-dom";
 import Header from "../header/header";
 import OfferList from "../offer-list/offer-list";
 import LoadingScreen from "../loading-screen/loading-screen";
-import {getFavorite} from "../../selectors";
+import {getFavorite, getOffersGroupedByCity} from "../../selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchFavorite, setFavoriteOffer} from "../../store/api-actions";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
-import {AppRoute, locations} from "../../const";
+import {AppRoute} from "../../const";
 import {fillOffers, selectCity} from "../../store/action";
 
 const Favorites = () => {
   const dispatch = useDispatch();
   const favorite = useSelector((state) => getFavorite(state));
   const {isDataFavoritesLoaded} = useSelector((state) => state.DATA);
-  let offersByCity = [];
-  if (favorite.length) {
-    locations.forEach((location) => {
-      offersByCity[location.id] = favorite.filter((item) => item.city.name === location.name);
-    });
-  }
+  const favoriteGroupedByCity = useSelector((state) => getOffersGroupedByCity(state));
+
 
   const handleFavoriteButtonClick = (item) => {
     const status = +!item.isFavorite;
@@ -46,7 +42,7 @@ const Favorites = () => {
             <section className="favorites">
               <h1 className="favorites__title">{favorite ? `Saved listing` : `Nothing yet saved`}</h1>
               <ul className="favorites__list">
-                {offersByCity && offersByCity.map((items) => {
+                {favoriteGroupedByCity && favoriteGroupedByCity.map((items) => {
                   if (!items.length) {
                     return false;
                   }

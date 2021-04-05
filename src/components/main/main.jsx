@@ -10,7 +10,6 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import SortOptions from "../sort-options/sort-options";
 import MainEmpty from "../main-empty/main-empty";
-import {locations} from "../../const";
 
 const Main = () => {
   const {city} = useSelector((state) => state.PROCESS);
@@ -18,6 +17,7 @@ const Main = () => {
   const {isDataLoaded} = useSelector((state) => state.DATA);
   const offersCount = useSelector((state) => getOffersCount(state));
   const offersFiltered = useSelector((state) => getOffersByCity(state));
+  const {locations} = useSelector((state) => state.PROCESS);
 
   const [isExistenceOffers, setExistenceOffers] = useState(true);
 
