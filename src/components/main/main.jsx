@@ -45,10 +45,12 @@ const Main = () => {
   }, [isDataLoaded]);
 
   useEffect(() => {
-    if (isDataLoaded && !offersFiltered) {
+    if (offersFiltered.length === 0) {
       setExistenceOffers(false);
+    } else {
+      setExistenceOffers(true);
     }
-  }, [isDataLoaded, offersFiltered]);
+  }, [offersFiltered]);
 
   if (!isDataLoaded) {
     return (
