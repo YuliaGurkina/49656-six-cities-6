@@ -13,9 +13,9 @@ const OfferList = (props) => {
   };
   const {
     offers,
-    customCardClass,
-    customCardImgClass,
-    customCardInfoClass,
+    customCardClass = ``,
+    customCardImgClass = ``,
+    customCardInfoClass = ``,
     widthImg = 260,
     heightImg = 200,
     isActiveItemNeeded = false
