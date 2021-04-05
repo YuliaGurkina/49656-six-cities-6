@@ -184,7 +184,7 @@ const Property = ({id}) => {
                 offers={nearbyOffers}
                 customCardClass='near-places__card'
                 customCardImgClass='near-places__image-wrapper'
-                handleFavoriteButtonClick={handleFavoriteButtonClick}
+                onFavoriteButtonClick={handleFavoriteButtonClick}
               />
             </div>
           </section>

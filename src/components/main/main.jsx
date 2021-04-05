@@ -84,7 +84,7 @@ const Main = () => {
                     offers={offersFiltered}
                     customCardClass='cities__place-card'
                     customCardImgClass='cities__image-wrapper'
-                    handleFavoriteButtonClick={handleFavoriteButtonClick}
+                    onFavoriteButtonClick={handleFavoriteButtonClick}
                     isActiveItemNeeded={true}
                   />
                 </div>

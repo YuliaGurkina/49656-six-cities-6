@@ -74,7 +74,7 @@ const Favorites = () => {
                           customCardInfoClass='favorites__card-info'
                           widthImg={150}
                           heightImg={110}
-                          handleFavoriteButtonClick={handleFavoriteButtonClick}
+                          onFavoriteButtonClick={handleFavoriteButtonClick}
                         />
                       </div>
                     </li>

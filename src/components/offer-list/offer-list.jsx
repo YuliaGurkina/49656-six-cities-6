@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 import {selectOffer} from "../../store/action";
 
 const OfferList = (props) => {
-  const {handleFavoriteButtonClick} = props;
+  const {onFavoriteButtonClick} = props;
   const dispatch = useDispatch();
   const setActiveOffer = (offer) => {
     dispatch(selectOffer(offer));
@@ -36,7 +36,7 @@ const OfferList = (props) => {
           handleMouseLeave={isActiveItemNeeded ? () => setActiveOffer({}) : () => {}}
           onClick={(evt) => {
             evt.preventDefault();
-            handleFavoriteButtonClick(offer);
+            onFavoriteButtonClick(offer);
           }}
         />
       )}
@@ -51,7 +51,7 @@ OfferList.propTypes = {
   customCardInfoClass: PropTypes.string,
   widthImg: PropTypes.number,
   heightImg: PropTypes.number,
-  handleFavoriteButtonClick: PropTypes.func.isRequired,
+  onFavoriteButtonClick: PropTypes.func.isRequired,
   isActiveItemNeeded: PropTypes.bool,
 };
 
