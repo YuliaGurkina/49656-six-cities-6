@@ -93,3 +93,5 @@ export const options = [
 ];
 
 export const MAX_COUNT_REVIEW_DEFAULT = 10;
+
+export const DEFAULT_CITY_FROM_LOGIN = `Amsterdam`;

@@ -7,7 +7,8 @@ import {getFavorite} from "../../selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchFavorite, setFavoriteOffer} from "../../store/api-actions";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
-import {locations} from "../../const";
+import {AppRoute, locations} from "../../const";
+import {fillOffers, selectCity} from "../../store/action";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -53,9 +54,16 @@ const Favorites = () => {
                     <li className="favorites__locations-items" key={`locations-${i}`}>
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
-                          <a className="locations__item-link" href="#">
+                          <Link
+                            className="locations__item-link"
+                            to={AppRoute.ROOT}
+                            onClick={() => {
+                              dispatch(selectCity(items[0].city.name));
+                              dispatch(fillOffers(items[0].city.name));
+                            }}
+                          >
                             <span>{items[0].city.name}</span>
-                          </a>
+                          </Link>
                         </div>
                       </div>
                       <div className="favorites__places">
