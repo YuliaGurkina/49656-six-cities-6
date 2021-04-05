@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {selectSortOption} from "../../store/action";
 import PropTypes from "prop-types";
-import {Options} from "../../const";
+import {options} from "../../const";
 
 const SortOptions = ({onSelect, sortOption}) => {
   const [isOpenSortMenu, setOpenSortMenu] = useState(false);
@@ -22,7 +22,7 @@ const SortOptions = ({onSelect, sortOption}) => {
         </svg>
       </span>
       <ul className={`places__options places__options--custom ${isOpenSortMenu ? `places__options--opened` : ``}`}>
-        {Options.map((item, i) => {
+        {options.map((item, i) => {
           return <li
             className={`places__option ${sortOption.name === item.name ? `places__option--active` : ``}`}
             tabIndex="0"

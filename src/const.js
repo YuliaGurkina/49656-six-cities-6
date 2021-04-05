@@ -25,7 +25,7 @@ export const OfferType = {
   HOUSE: `House`
 };
 
-export const MonthNames = [
+export const monthNames = [
   `January`,
   `February`,
   `March`,
@@ -40,13 +40,13 @@ export const MonthNames = [
   `December`
 ];
 
-export const CountLettersReview = {
+export const countLettersReview = {
   MIN: 50,
   MAX: 300
 };
 
 
-export const Locations = [
+export const locations = [
   {
     name: `Paris`,
     id: 1,
@@ -73,7 +73,7 @@ export const Locations = [
   }
 ];
 
-export const Options = [
+export const options = [
   {
     name: `Popular`,
     id: 0

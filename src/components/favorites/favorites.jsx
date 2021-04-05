@@ -7,7 +7,7 @@ import {getFavorite} from "../../selectors";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchFavorite, setFavoriteOffer} from "../../store/api-actions";
 import FavoritesEmpty from "../favorites-empty/favorites-empty";
-import {Locations} from "../../const";
+import {locations} from "../../const";
 
 const Favorites = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Favorites = () => {
   const {isDataFavoritesLoaded} = useSelector((state) => state.DATA);
   let offersByCity = [];
   if (favorite.length) {
-    Locations.forEach((location) => {
+    locations.forEach((location) => {
       offersByCity[location.id] = favorite.filter((item) => item.city.name === location.name);
     });
   }

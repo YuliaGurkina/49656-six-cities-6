@@ -10,7 +10,7 @@ import {useSelector, useDispatch} from 'react-redux';
 import {getOffersByCity, getOffersCount} from "../../selectors";
 import SortOptions from "../sort-options/sort-options";
 import MainEmpty from "../main-empty/main-empty";
-import {Locations} from "../../const";
+import {locations} from "../../const";
 
 const Main = () => {
   const {city} = useSelector((state) => state.PROCESS);
@@ -65,7 +65,7 @@ const Main = () => {
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <CitiesList
-          locations={Locations}
+          locations={locations}
           selectedCity={city}
           onSelect={onSelectCity}
         />
