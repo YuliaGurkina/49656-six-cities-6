@@ -1,10 +1,10 @@
 import React from 'react';
 import Review from "../review/review";
 import PropTypes from "prop-types";
-import {AuthorizationStatus} from "../../const";
+import {AuthorizationStatus, MAX_COUNT_REVIEW_DEFAULT} from "../../const";
 import {useSelector} from "react-redux";
 
-const ReviewsList = ({countReviews, comments, children, maxCountReviews = 10}) => {
+const ReviewsList = ({countReviews, comments, children, maxCountReviews = MAX_COUNT_REVIEW_DEFAULT}) => {
   const commentsSorted = comments.slice(0, maxCountReviews).sort((a, b) => {
     return new Date(b.date) - new Date(a.date);
   });

@@ -91,3 +91,5 @@ export const options = [
     id: 3
   },
 ];
+
+export const MAX_COUNT_REVIEW_DEFAULT = 10;
